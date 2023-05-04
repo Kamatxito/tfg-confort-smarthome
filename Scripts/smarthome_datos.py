@@ -31,17 +31,22 @@ while (True):
     # Datos que se recogen de la SmartHome
     tempInterior = peticion_datos(parametros)
     tempInterior += 0.0
+    print(tempInterior)
     parametros['alias'] = '3/2/5' # Alias del siguiente sensor
     tempExterior = peticion_datos(parametros)
+    tempExterior += 0.0 # Para evitar valores enteros
     parametros['alias'] = '3/2/1'
     CO2 = peticion_datos(parametros)
+    CO2 += 0.0 # Para evitar valores enteros
     parametros['alias'] = '3/2/2'
     humedadInterior = peticion_datos(parametros)
+    humedadInterior += 0.0 # Para evitar valores enteros
     parametros['alias'] = '3/2/4'
     velocidadViento =  peticion_datos(parametros)
     velocidadViento += 0.0 # Para evitar valores enteros
     parametros['alias'] = '3/2/6'
     luxExterior = peticion_datos(parametros)
+    luxExterior += 0.0 # Para evitar valores enteros
     parametros['alias'] = '3/2/10'
     lluvia = peticion_datos(parametros)
 
@@ -143,21 +148,21 @@ while (True):
     mongoColecActual.insert_one(data)
 
     # PARTE 3: EXPORTACION DE DATOS EN TXT
+
     now = datetime.now()
     fecha = now.strftime('%d-%m-%Y')
     hora = now.strftime('%H:%M')
     # Debemos comprobar si existe el archivo para añadir la cabecera o no
-    fileObj = Path('C:\\Users\\Smarthome\\Desktop\\David TFG\\txtLogs' + fecha + '.txt')
+    fileObj = Path('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha + '.txt')
     if(fileObj.is_file()):
-        f = open('C:\\Users\\Smarthome\\Desktop\\David TFG\\txtLogs' + fecha+'.txt', 'a')
-        f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior,CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
+        f = open('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha+'.txt', 'a')
+        f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
         f.close
     else:
         print('No existe el fichero')
-        f = open('C:\\Users\\Smarthome\\Desktop\\David TFG\\txtLogs' + fecha+'.txt', 'w')
+        f = open('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha+'.txt', 'w')
         f.write('HORA\tTEMPERATURA INT.\tTEMPERATURA EXT.\tCO2\tHUMEDAD INT.\tVEL. VIENTO\tLUMINOSIDAD EXT.\tLLUVIA\n')
-        f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior,CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
+        f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
         f.close
 
     sleep(5 * 60)
-
