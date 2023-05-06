@@ -31,7 +31,7 @@ while (True):
     # Datos que se recogen de la SmartHome
     tempInterior = peticion_datos(parametros)
     tempInterior += 0.0
-    print(tempInterior)
+    #print(tempInterior)
     parametros['alias'] = '3/2/5' # Alias del siguiente sensor
     tempExterior = peticion_datos(parametros)
     tempExterior += 0.0 # Para evitar valores enteros
@@ -164,5 +164,7 @@ while (True):
         f.write('HORA\tTEMPERATURA INT.\tTEMPERATURA EXT.\tCO2\tHUMEDAD INT.\tVEL. VIENTO\tLUMINOSIDAD EXT.\tLLUVIA\n')
         f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
         f.close
+    
+    print("Datos registrados correctamente: " + str(fecha) + " " + str(hora))
 
     sleep(5 * 60)
