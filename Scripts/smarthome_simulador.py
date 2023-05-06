@@ -14,16 +14,12 @@ from gtts import gTTS
 import os
 
 # --- VARIABLES Y MÉTODOS A USAR ---
+aux_simulador = 1
 valor_simulacion = 0.0
 
 # API:
 dir = "http://remote:LabSmarthome21@192.168.7.210/scada-remote" # Direccion de la API
-parametros_GET = { # Parametros para la conexion a la API
-        'm': 'json', # Formato de salida
-        'r': 'grp', # Request
-        'fn': 'getvalue', # Función a ejecutar
-        'alias': '3/1/1' # Dirección del objeto
-    }
+
 parametros_POST = { # Parametros para la conexion a la API
     'm': 'json', # Formato de salida
     'r': 'grp', # Request
@@ -49,38 +45,78 @@ def reproducir_audio(mensaje):
     sonos.play_uri("mensaje_audio.mp3")
     os.remove("mensaje_audio.mp3")
 
-# --- CONSULTAS AL USUARIO ---
-opcion = input("Activar control de temperatura (True/False): ")
-baliza_temp = bool(opcion)
-
 # --- PROGRAMA PRINCIPAL ---
 while (True):
 
+    if (aux_simulador == 1):
+        # --- CONSULTAS AL USUARIO ---
+        print("Te doy la bienvenida al simulador, active las opciones que prefiera lanzar:")
+        opcion = input("Activar control de temperatura (True/False): ")
+        baliza_temp = bool(opcion)
+        opcion = input("Activar aumento de temperatura exterior (True/False): ")
+        simulacion_temp_ext_aume = bool(opcion)
+        opcion = input("Activar aumento de temperatura interior (True/False): ")
+        simulacion_temp_int_aume = bool(opcion)
+        opcion = input("Activar descenso de temperatura exterior (True/False): ")
+        simulacion_temp_ext_desc = bool(opcion)
+        opcion = input("Activar descenso de temperatura interior (True/False): ")
+        simulacion_temp_int_desc = bool(opcion)
+        aux_simulador = 0
+
     # PARTE 1: RECOGIDA DE DATOS
+    parametros_GET = { # Parametros para la conexion a la API
+        'm': 'json', # Formato de salida
+        'r': 'grp', # Request
+        'fn': 'getvalue', # Función a ejecutar
+        'alias': '3/1/1' # Dirección del objeto
+    }
 
     # Datos que se recogen de la SmartHome
+    # Temperatura interior
     tempInterior = GET_datos(parametros_GET)
     tempInterior += 0.0
+    if (simulacion_temp_int_aume):
+        tempInterior += valor_simulacion
+    if (simulacion_temp_int_desc):
+        tempInterior -= valor_simulacion
+    
+    # Temperatura exterior
     parametros_GET['alias'] = '3/2/5' # Alias del siguiente sensor
     tempExterior = GET_datos(parametros_GET)
     tempExterior += 0.0 # Para evitar valores enteros
-    tempExterior += valor_simulacion
-    if valor_simulacion <= 10.0:
-        valor_simulacion += 1.0
+    if (simulacion_temp_ext_aume):
+        tempExterior += valor_simulacion
+    if (simulacion_temp_ext_desc):
+        tempExterior -= valor_simulacion
+    
+    # CO2
     parametros_GET['alias'] = '3/2/1'
     CO2 = GET_datos(parametros_GET)
     CO2 += 0.0 # Para evitar valores enteros
+
+    # Humedad interior
     parametros_GET['alias'] = '3/2/2'
     humedadInterior = GET_datos(parametros_GET)
     humedadInterior += 0.0 # Para evitar valores enteros
+
+    # Velocidad viento
     parametros_GET['alias'] = '3/2/4'
     velocidadViento =  GET_datos(parametros_GET)
     velocidadViento += 0.0 # Para evitar valores enteros
+
+    # Luz exterior
     parametros_GET['alias'] = '3/2/6'
     luxExterior = GET_datos(parametros_GET)
     luxExterior += 0.0 # Para evitar valores enteros
+
+    # Lluvia
     parametros_GET['alias'] = '3/2/10'
     lluvia = GET_datos(parametros_GET)
+
+    # Actualizamos el valor simulado
+    if (valor_simulacion <= 10.0):
+        valor_simulacion += 1.0
+    print("Valor de la simulación: " + str(valor_simulacion))
 
     # PARTE 2: ENVIO DE DATOS A BD INFLUX Y A BD MONGO
 
@@ -212,25 +248,25 @@ while (True):
         print("Temperatura exterior: " + str(tempExterior))
 
         # Gestión de cada caso
-        if ((tempInterior < 20) and (tempExterior > tempInterior) and (altura_ventana==100)):
+        if ((tempInterior < 20) and (tempExterior > 25) and (altura_ventana==100)):
             print("Temperatura baja en el interior, abriendo ventanas.")
             #reproducir_audio("Temperatura baja en el interior, abriendo ventanas.")
             parametros_POST['alias'] = '2/3/5'
             parametros_POST['value'] = 0
             POST_datos(parametros_POST)
-        if ((tempInterior < 20) and (tempExterior > tempInterior) and (altura_ventana<100)):
-            print("Temperatura baja en el interior y exterior, cerrando ventanas.")
-            #reproducir_audio("Temperatura baja en el interior y exterior, cerrando ventanas.")
+        if ((tempInterior < 20) and (tempExterior < 20) and (altura_ventana<100)):
+            print("Temperatura baja en el interior y en el exterior, cerrando ventanas.")
+            #reproducir_audio("Temperatura baja en el interior, abriendo ventanas.")
             parametros_POST['alias'] = '2/3/5'
             parametros_POST['value'] = 1
             POST_datos(parametros_POST)
-        if ((tempInterior > 25) and (tempExterior > tempInterior) and (altura_ventana<100)):
+        if ((tempInterior > 25) and (tempExterior > 25) and (altura_ventana<100)):
             print("Temperatura alta en el interior y exterior, cerrando ventanas.")
             #reproducir_audio("Temperatura alta en el interior y exterior, cerrando ventanas.")
             parametros_POST['alias'] = '2/3/5'
             parametros_POST['value'] = 1
             POST_datos(parametros_POST)
-        if ((tempInterior > 25) and (tempExterior < tempInterior) and (altura_ventana==100)):
+        if ((tempInterior > 25) and (tempExterior < 20) and (altura_ventana==100)):
             print("Temperatura alta en el interior, abriendo ventanas.")
             #reproducir_audio("Temperatura alta en el interior, abriendo ventanas.")
             parametros_POST['alias'] = '2/3/5'
@@ -238,5 +274,7 @@ while (True):
             POST_datos(parametros_POST)
 
     print("Datos simulados correctamente: " + str(fecha) + " " + str(hora))
-    
-    sleep(1 * 15)
+    opcion = input("¿Quieres cambiar las opciones del simulador? (True/False): ")
+    baliza_opcion = bool(opcion)
+    if baliza_opcion:
+        aux_simulador = 1
