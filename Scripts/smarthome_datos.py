@@ -167,4 +167,4 @@ while (True):
     
     print("Datos registrados correctamente: " + str(fecha) + " " + str(hora))
 
-    sleep(1 * 30)
+    sleep(5 * 60)
