@@ -18,8 +18,10 @@ with open('prueba.mp3', 'rb') as audio:
     ftp.storbinary('STOR prueba.mp3', audio)
 ftp.quit()
 
+print("Fin del script")
+
 # Ahora creamos una instancia del altavoz Sonos y pedimos que reproduzca el audio
-sonos = SoCo('192.168.7.14')
-sonos.status_light = False
-sonos.volume = 5
-sonos.play_uri("https://vgmsite.com/soundtracks/legend-of-zelda-the-30th-anniversary-game-music/rsmuorbhbm/1-01%20Title%20-%20Legend%20of%20Zelda.mp3")
+#sonos = SoCo('192.168.7.14')
+#sonos.status_light = False
+#sonos.volume = 5
+#sonos.play_uri("https://vgmsite.com/soundtracks/legend-of-zelda-the-30th-anniversary-game-music/rsmuorbhbm/1-01%20Title%20-%20Legend%20of%20Zelda.mp3")
