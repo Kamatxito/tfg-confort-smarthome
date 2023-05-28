@@ -264,7 +264,6 @@ while (True):
         # Recogida de datos
         parametros_GET['alias'] = '2/3/7'
         altura_ventana = GET_datos(parametros_GET)
-        altura_ventana = 100
         if (altura_ventana < 100):
             print("La ventana está abierta: " + str(altura_ventana))
         else:
