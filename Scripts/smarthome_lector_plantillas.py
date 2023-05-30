@@ -4,9 +4,7 @@
 # funcionaría el control de los sensores y actuadores.
 
 from time import sleep
-import requests
 from datetime import datetime
-from pathlib import Path
 from influxdb import InfluxDBClient
 import pytz
 import pymongo
@@ -42,8 +40,6 @@ def imprimirValores():
         print("Lluvia: sí está lloviendo")
 
 # PROGRAMA PRINCIPAL
-
-print(datetime.now(pytz.timezone('UTC')))
 
 # Se realiza la lectura de datos desde una plantilla
 plantilla = open('./Plantillas/diaCalurosoTemps.txt', 'r')
@@ -85,8 +81,6 @@ for contadorLineas, linea in enumerate(contenido):
     agregarDatosDB("velocidadViento", hora, float(velocidadViento), json_payload)
     agregarDatosDB("luxExterior", hora, float(luxExterior), json_payload)
     agregarDatosDB("lluvia", hora, bool(lluvia), json_payload)
-
-    sleep(60*5)
 
 plantilla.close()
 print("Datos registrados correctamente")
