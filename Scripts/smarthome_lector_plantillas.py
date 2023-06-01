@@ -17,7 +17,7 @@ def agregarDatosDB(nombreColeccion, hora, dato, json_payload):
         mongoColecActual = mongoDBActual[nombreColeccion]
         data = {
             "measurement": nombreColeccion,
-            "time": "2023-05-26 "+str(hora)+":00+00:00",
+            "time": "2023-05-30 "+str(hora)+":00+00:00",
             "fields": {
                 'value': dato
             }
@@ -42,7 +42,7 @@ def imprimirValores():
 # PROGRAMA PRINCIPAL
 
 # Se realiza la lectura de datos desde una plantilla
-plantilla = open('./Plantillas/diaCalurosoTemps.txt', 'r')
+plantilla = open('./Plantillas/diaInvernalTemps.txt', 'r')
 contenido = plantilla.readlines()
 
 # Se parará la ejecución una vez haya terminado de recorrer todas las líneas
