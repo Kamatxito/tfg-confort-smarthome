@@ -1,0 +1,101 @@
+%Aplicamos la configuración
+\input{configuration}
+
+%Creamos el documento
+\begin{document}
+    
+    %Estilo de la hoja vacio.
+    \pagestyle{empty}
+    \pagenumbering{gobble}
+    
+    %Incluimos portada
+    \includepdf[width=21.6cm,height=28.1cm]{PortadaTFG.pdf}
+    \cleardoublepage
+    
+    %Incluimos agradecimientos.
+    %\include{capitulos/agradecimiento/agradecimiento} 
+    %\cleardoublepage
+    %\newpage
+    
+    %Incluimos estructura.
+    %\include{capitulos/estructura/estructura} 
+    %\cleardoublepage
+    %\newpage
+    
+    %Incluimos índice de capítulos.
+    \tableofcontents 
+    \cleardoublepage
+    \newpage
+    
+    %Incluimos índice de figuras.
+    %\listoffigures
+    %\newpage
+    
+    %Incluimos índice de tablas.
+    %\listoftables
+    %\cleardoublepage
+    %\newpage
+    
+    %Reseteamos número de página a 1, aplicamos estilo de headers y footers e incluimos los capítulos.
+    %Si el capítulo termina el una página que se queda a la derecha, se añade hoja en blanco para el que siguiente empiece en la derecha.
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    \pagestyle{fancy}
+    
+    \include{capitulos/capitulo1/capitulo1} 
+    \pagestyle{empty}
+    \cleardoublepage
+    \pagestyle{fancy}
+    
+    %\include{capitulos/capitulo2/capitulo2} 
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo3/capitulo3} 
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo5/capitulo5}
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo6/capitulo6}
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo7/capitulo7}
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo8/capitulo8}
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo9/capitulo9}
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo10/capitulo10}
+    %\pagestyle{empty}
+    %\cleardoublepage
+    %\pagestyle{fancy}
+    
+    %\include{capitulos/capitulo11/capitulo11}
+    
+    %Bibliografia
+    \printbibliography[title=Bibliografía]
+    
+    %Anexo sin enunciado
+    %\include{capitulos/anexotres/anexotres}
+    
+    %Incluimos contraportada.
+    %\includepdf[width=21.6cm,height=28cm]{TFG-back.pdf}
+
+\end{document}

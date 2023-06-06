@@ -1,0 +1,64 @@
+%Formato libro y con tamaño de letra a 11
+\documentclass[11pt]{book} 
+%Configurar el idioma en español 
+\usepackage[spanish, es-tabla]{babel} 
+\usepackage[utf8]{inputenc}
+%Margenes de la hoja
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry} 
+%Crea separación entre dos lineas (interlineado)
+\usepackage{setspace} 
+\spacing{1}
+%Para insertar imágenes
+\usepackage{graphicx} 
+%Espaciado entre párrafos
+\setlength{\parskip}{8px} 
+%Para crear los headers y footers
+\usepackage{fancyhdr} 
+%Para que las figuras salgan con subnumeros
+\usepackage{amsmath}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+%Para incluir PDFs
+\usepackage{pdfpages} 
+%Para poder poner mas subsecciones de las que por defecto vienen predefinidas
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} 
+\setcounter{tocdepth}{4}
+%Para poder poner las imágenes rotadas con el label y todo.
+\usepackage{adjustbox}
+%Para la bibliografia
+\usepackage[sorting=none]{biblatex}
+\addbibresource{bibliografia.bib}
+% Para hacer que las imagenes esten al final de una hoja
+\usepackage{dblfloatfix}    
+%Para hacer itemize con dos columnas.
+\usepackage{multicol}
+%Cambiar tamaño entre las filas de una tabla
+\renewcommand{\arraystretch}{1.2}
+%Para usar subimagenes
+\usepackage{subfig}
+%Para usar tablas que se puedan dividir en diferentes hojas
+\usepackage{longtable}
+%Definir nombre de TFG
+\newcommand{\nombreTFG}{Reconocimiento de acciones en un frigorífico y toma de decisiones en un ambiente inteligente}
+%Reajusta los números de las figuras y de las tablas
+\usepackage{chngcntr}
+\counterwithout{figure}{section}
+\counterwithout{table}{section}
+\renewcommand\thefigure{\thechapter.\arabic{figure}}
+\renewcommand\thetable{\thechapter.\arabic{table}}
+%Poner el titulo del capítulo en una línea.
+\usepackage{titlesec}
+\titleformat{\chapter}[hang] 
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter:}{1em}{} 
+%Imagenes a la derecha en las herramientas
+\usepackage{wrapfig}
+%Colores de las tablas
+\usepackage{colortbl}
+\newcommand{\gray}{\rowcolor[gray]{.90}}
+\usepackage{lscape}

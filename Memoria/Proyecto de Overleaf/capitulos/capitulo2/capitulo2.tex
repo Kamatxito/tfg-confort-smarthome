@@ -1,0 +1,298 @@
+\chapter{Objetivos y fases del proyecto}
+Se van a especificar los objetivos que se quieren cumplir con la realización de este proyecto, y las tareas a realizar para cumplirlos.
+
+\section{Objetivos del proyecto}
+
+El objetivo principal de este proyecto es implementar o desarrollar un prototipo de frigrífico inteligente, denominado SmartFridge. 
+
+Para ello, se van a implantar diferentes sensores en el frigorífico ubicado en la SH-UAL con el objetivo de hacerlo más inteligente. A partir de los datos generados por los sensores, se podrá automatizar la lista de la compra, saber que productos ha consumido un usuario, o saber el número exacto de productos en el interior del frigorífico, además de más funciones.
+
+Este frigorífico inteligente seguirá una infraestructura IdC. El concepto de IdC puede dar lugar a confusión, ya que a veces se implementan sistemas IdC que no hacen uso de Internet, sino que son un conjunto de sensores conectados a un controlador, el cual recibe datos y realizar diferentes acciones dependiendo de lo que haya llegado, y para hacer esto, no es necesario el uso de Internet. Esto se llama IdC en modo computación en la niebla. La diferencia entre éste, y la computación en la nube, es que en este último el controlador tiene acceso a internet y es desde ahí donde se realizan las operaciones como almacenamiento, gestión de datos o visualización de estos.
+
+La infraestructura general de un sistema IdC según Cisco[10] esta compuesta por 4 capas:
+
+\begin{itemize}
+    \item \textbf{Capa de dispositivos físicos:} Esta capa esta compuesta por un conjunto de sensores/dispositivos que proporcionan información sobre el entorno.
+    \item \textbf{Capa de neblina o niebla:} En esta capa se encuentra los dispositivos que reciben la información de la capa inferior y la proporcionan a la siguiente capa.
+    \item \textbf{Capa de red:} En esta capa se realiza la conexión entre el controlador de la capa inferior e internet.
+    \item \textbf{Capa de la nube:} En esta capa se encuentran las tecnologías que procesan o almacenan los datos generados por los sensores u otra información.
+\end{itemize}
+
+Dado que este frigorífico va a seguir una infraestructura IdC, la computación y el procesamiento de los datos de los sensores no se van a realizar en los dispositivos que ejercen de controladores, sino que estos datos van a ser enviados hasta la capa de la nube y allí serán procesados. La Figura \ref{fig:infraestructura} muestra la estructura estándar del IdC.
+
+\begin{figure}[h] 
+    \centering
+    \includegraphics[width=.80\textwidth]{capitulos/capitulo2/infraestructura.png}
+    \caption{Infraestructura general de un sistema IdC.}
+    \label{fig:infraestructura}
+\end{figure}
+
+Para aplicar esta infraestructura al caso del frigorífico, se diseñará una propia, basándose en la infraestructura mencionada anterior, que se puede apreciar en la Figura \ref{fig:nuestrainfraestructura}.
+
+Para poder cumplir el objetivo principal del proyecto, será necesario integrar una serie de dispositivos en el frigorífico (entre ellos algunos sensores), procesar los datos generados e incorporar diferentes acciones o funciones con los datos obtenidos. Este objetivo, se puede descomponer a su vez en varios subobjetivos, los cuales se listan a continuación:
+
+\begin{itemize}
+    \item \textbf{O1 - Elección del hardware a usar:} Primeramente es necesaria la investigación de diferente hardware a usar para posteriormente elegir los sensores que se van a utilizar para el proyecto. De esta manera se obtendrá la información necesaria de los productos del frigorífico.
+    \item \textbf{O2 - Realización de un conexionado entre el hardware:} Una vez obtenido el hardware, hay que encontrar la forma de conexión entre el hardware, para que la información de estos pueda ser mandada hasta el sistema y administrada.
+    \item \textbf{O3 - Creación de un sistema web con su base de datos e interfaz:} El sistema que va a usar este proyecto debe de contar con una base de datos para guardar los datos de los sensores y también debe de contar con una interfaz para mostrar esos datos y poder hacer acciones con ellos. Unas de las posibles opciones a usar es un sistema basado en stack MERN.
+    \item \textbf{O4 - Creación de los modelos 3D y su impresión:} En el proyecto será necesario hacer uso de una impresora 3D y de crear modelos 3D, por lo que es importante primeramente aprender a hacer uso de esto, y después crear los modelos necesarios, imprimirlos e implementarlos en el frigorífico para que el sistema se quede correctamente implantado.
+    \item \textbf{O5 - Implementación del sistema en el frigorífico:} Si todos los objetivos anteriores se han cumplido, el siguiente objetivo consistirá en la implantación de todos los sensores en el frigorífico y de configurar el sistema con la red doméstica para la comunicación de éste con los sensores.
+    \item \textbf{O6 - Documentación y realización de la memoria:} Se realizará una memoria explicando todo el sistema, que servirá para entender todo el proceso de la creación de éste, además de aprender todas las acciones que el sistema tendrá y como se utilizarán.
+\end{itemize}
+
+\section{Metodología de trabajo general}
+
+Para poder hacer frente a todos los objetivos especificados, se deberán de realizar diferentes tareas que completen todos estos. Además, habrá  una tarea de coordinación y reunión con los tutores que durará durante toda la realización del proyecto. En esas reuniones con los tutores se realizarán con el objetivo de establecer requisitos y temática del proyecto. También se usarán durante la creación del sistema para realizar un seguimiento del éste y sugerir cambios. Además es importante destacar que en estas reuniones se realizarán planes de contingencia para seguir avanzando en el proyecto ante futuros posibles problemas. Las tareas a realizar para completar el proyecto son las siguientes:
+
+\begin{longtable}{|p{0.9\textwidth}|}
+\hline
+\endfirsthead
+\endhead
+\hline \multicolumn{1}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\endlastfoot
+    \rowcolor[gray]{.5}
+    {\color{white}\textbf{T1: Capa de dispositivos físicos.}} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Recursos necesarios} \\
+    \hline
+    Ordenador personal y conexión a internet. \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Objetivos que se cumplen}\\
+    \hline
+    Elección del hardware a usar.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Descripción de la tarea}\\
+    \hline
+    Antes de realizar esta tarea, hay que hacer una revisión bibliográfica del hardware.
+
+    Una vez definido el sistema a desarrollar, las herramientas a utilizar, y la estructura IdC que se va a seguir, se realizará la búsqueda de sensores que obtengan información dentro de los tipos de sensores que se necesitaban, se comparan entre ellos y se obtiene el mejor. Finalmente, se realizará una explicación de su colocación en el frigorífico y del presupuesto necesario para hacer frente económicamente a esta capa.
+    
+    Estos sensores estarán conectados a un controlador en la capa superior mediante un protocolo de comunicación.
+    
+    Los requisitos que tienen que cumplir los sensores para poder ser utilizados en este proyecto son:
+    
+    \begin{itemize}
+        \item Estén disponibles todo el día.
+        \item Soporten la temperatura habitual del frigorífico (entre 3ºC y 6ºC).
+    \end{itemize} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Subtareas} \\
+    \hline
+    \begin{itemize}
+        \item \textbf{T1.1 - Investigación de hardware:} Realizar una revisión bibliográfica para conocer todas las diferentes opciones que existen para realizar el proyecto.
+        \item \textbf{T1.2 - Selección los sensores y los controladores:} Seleccionar los sensores y controladores adecuados para el proyecto que cumplan los requisitos especificados.
+        \item \textbf{T1.3 - Pruebas iniciales para el aprendizaje de uso:} Realizar pruebas varias con el hardware para comprender como funciona para posteriormente utilizarlo en el proyecto sin problemas.
+    \end{itemize} \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.9\textwidth}|}
+\hline
+\endfirsthead
+\endhead
+\hline \multicolumn{1}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\endlastfoot
+    \rowcolor[gray]{.5}
+    {\color{white}\textbf{T2: Capa de neblina o niebla.}} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Recursos necesarios} \\
+    \hline
+    Ordenador personal, conexión a internet y el hardware obtenido (sensores y controladores). \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Objetivos que se cumplen} \\
+    \hline
+    Realización de un conexionado entre el hardware.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Descripción de la tarea} \\
+    \hline
+    En esta tarea se va a buscar un controlador que pueda usarse para recoger toda la información que los sensores envíen, y prepararla para enviarla a la siguiente capa.
+
+    Como se comentó anteriormente en la explicación de una estructura IdC, la idea es que en esta capa no se hiciera ninguna gestión con los datos, sino que simplemente recibiera los datos de los sensores y enviarla a la siguiente capa. El problema está en que se recibirá información de los sensores continuamente, por lo que el controlador debería de estar enviando constantemente la información recibida, esto supondría un gasto de energía absurdo si los datos que se están enviando no han cambiado, por lo que si se va a hacer una primera gestión de los datos en el controlador. 
+    
+    Si los datos recibidos en un momento de un sensor no han cambiado con respecto a los datos que envió anteriormente, no se van a enviar. En caso contrario, si los datos recibidos en un momento son diferentes a los recibidos anteriormente, si serán enviados para que la gestión de estos siga en una capa superior.
+    
+    Los requisitos que tienen que cumplir los controladores para poder ser utilizados en este proyecto son: 
+    
+    \begin{itemize}
+        \item Estén disponibles todo el día. 
+        \item Soporten la temperatura habitual del frigorífico (entre 3ºC y 6ºC).
+        \item Sean compatibles con todos los sensores obtenidos.
+    \end{itemize} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Subtareas} \\
+    \hline
+    \begin{itemize}
+        \item \textbf{T2.1 - Conexionado entre los sensores y los controladores:} Realizar la conexión entre los sensores y los controladores para que la información pueda enviarse.
+    \end{itemize} \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.9\textwidth}|}
+\hline
+\endfirsthead
+\endhead
+\hline \multicolumn{1}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\endlastfoot
+    \rowcolor[gray]{.5}
+    {\color{white}\textbf{T3: Capa de red.}} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Recursos necesarios} \\
+    \hline
+    Ordenador personal, conexión a internet y los controladores. \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Objetivos que se cumplen} \\
+    \hline
+    Realización de un conexionado entre el hardware.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Descripción de la tarea} \\
+    \hline
+    En esta tarea se producirá la conexión entre los controladores y el back-end del sistema. Esto se va a conseguir conectando los controladores a una red dónde también estará conectado el sistema y desde donde los usuarios tendrán acceso a éste, por lo que la conexión se va a realizar de forma inalámbrica usando la tecnología Wi-Fi.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Subtareas} \\
+    \hline
+    \begin{itemize}
+        \item \textbf{T3.1 - Conexionado entre los controladores y el servidor:} Realizar la conexión entre los controladores y el servidor para que la información pueda enviarse.
+    \end{itemize} \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.9\textwidth}|}
+\hline
+\endfirsthead
+\endhead
+\hline \multicolumn{1}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\endlastfoot
+    \rowcolor[gray]{.5}
+    {\color{white}\textbf{T4: Capa de la nube.}} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Recursos necesarios} \\
+    \hline
+    Ordenador personal y conexión a internet. \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Objetivos que se cumplen} \\
+    \hline
+    Creación de un sistema web con su base de datos e interfaz.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Descripción de la tarea} \\
+    \hline
+    Antes de realizar esta tarea, es importante primero realizar una investigación acerca de qué tecnología a usar. Obtenido el conocimiento necesario, y elegido el sistema a usar, que va a ser un sistema MERN, se puede empezar a realizar la parte del software que completará la parte de la base de datos y de una interfaz para poder visualizar la información.
+
+    Esta tarea consistirá en la realización de la base de datos y todos los controladores que existen para gestionarla. También se realizará la interfaz que nos permitirá visualizar los datos, y hacer acciones con ellos como añadir otros productos o modificar los existentes.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Subtareas} \\
+    \hline
+    \begin{itemize}
+        \item \textbf{T4.1 - Realización de videotutoriales de MERN:} Primeramente se obtendrá conocimientos del sistema a usar para poder crear todo el sistema sin problemas.
+        \item \textbf{T4.2 - Realización de la base de datos:} Se creará la estructura de los objetos que van a formar la base de datos, es decir, los objetos para guardar información.
+        \item \textbf{T4.3 - Realización del back-end:} Programar toda la parte que controla la base de datos, con sus controladores y rutas de acceso.
+        \item \textbf{T4.4 - Realización del front-end:} Programar toda la interfaz y sus acciones disponibles.
+    \end{itemize} \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.9\textwidth}|}
+\hline
+\endfirsthead
+\endhead
+\hline \multicolumn{1}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\endlastfoot
+    \rowcolor[gray]{.5}
+    {\color{white}\textbf{T5: Instalación del sistema en el frigorífico.}} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Recursos necesarios} \\
+    \hline
+    Ordenador personal y conexión a internet. \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Objetivos que se cumplen} \\
+    \hline
+    \begin{itemize}
+        \item Creación de los modelos 3D y su impresión.
+        \item Implementación del sistema en el frigorífico.
+    \end{itemize}\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Descripción de la tarea} \\
+    \hline
+    Antes de realizar esta tarea, se realizará una revisión bibliográfica de los modelos 3D y su impresión.
+    
+    Para hacer la instalación de los sensores y controladores, se necesitará una estructura para guardar los controladores o insertar los sensores para dejarlos acoplados en una posición del frigorífico. Como éste no está preparado para esta implementación, se tendrán que crear modelos 3D con las piezas necesarias para conseguir que los sensores se acoplen al frigorífico y funcionen correctamente.
+    
+    Además de crear las piezas 3D necesarias, se va a realizar la implementación de todo el sistema en el frigorífico para su funcionamiento.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Subtareas} \\
+    \hline
+    \begin{itemize}
+        \item \textbf{T5.1 - Investigación de modelos 3D:} Se realizará una revisión bibliográfica acerca del modelado 3D para poder hacer uso de herramientas para crear e imprimir.
+        \item \textbf{T5.2 - Creación de modelos 3D:} Se crearán los modelos 3D necesarios para adaptar los sensores al frigorífico.
+        \item \textbf{T5.3 - Impresión de modelos 3D:} Se imprimirán los modelos.
+        \item \textbf{T5.4 - Instalación del sistema en el frigorífico:} Se instalarán todo el sistema creado en el frigorífico gracias a las figuras impresas.
+        \item \textbf{T5.5 - Testeo del sistema:} Teniendo todo instalado y listo para usar, se hará un testeo rápido de todas las opciones y se arreglan posibles fallos que puedan ocurrir que no se detectaban anteriormente sin estar el sistema montado.
+    \end{itemize} \\
+    \hline
+\end{longtable}
+
+\begin{longtable}{|p{0.9\textwidth}|}
+\hline
+\endfirsthead
+\endhead
+\hline \multicolumn{1}{r}{\textit{Continua en la siguiente página}} \\
+\endfoot
+\endlastfoot
+    \rowcolor[gray]{.5}
+    {\color{white}\textbf{T6: Realización de una memoria.}} \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Recursos necesarios} \\
+    \hline
+    Ordenador personal y conexión a internet. \\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Objetivos que se cumplen} \\
+    \hline
+    Documentación y realización de la memoria.\\
+    \hline
+    \rowcolor[gray]{.9}
+    \textbf{Descripción de la tarea} \\
+    \hline
+    Al acabar el proyecto, es importante realizar una memoria explicativa de todo el sistema, que servirá para entender todo el proceso de la creación de éste, además de aprender todas las acciones que el sistema tiene y como se utilizan.\\
+    \hline
+\end{longtable}
+
+Con las tareas definidas, se puede ver en la Figura \ref{fig:nuestrainfraestructura} el seguimiento que hay que seguir para completarlas, empezando por la tarea uno hasta llegar a la tarea cinco. Además, a lo largo de estas tareas, se hará paralelamente la tarea seis, que consiste en la realización de la memoria.
+
+También se puede ver la similitud de esta infraestructura con la genérica de un sistema IdC explicada en la Figura \ref{fig:infraestructura}. Esta infraestructura también tiene las cuatro capas explicadas anteriormente, que estarían comprendidas entre la tarea uno y la cuatro.
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=.80\textwidth]{capitulos/capitulo2/nuestrainfraestructura.png}
+    \caption{Infraestructura propia del sistema IdC.}
+    \label{fig:nuestrainfraestructura}
+\end{figure}

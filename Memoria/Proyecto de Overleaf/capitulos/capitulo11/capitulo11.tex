@@ -1,0 +1,33 @@
+\chapter{Conclusiones y trabajo futuro}
+
+\section{Conclusiones}
+En este TFG se ha implementado un sistema IdC de monitorización de sensores situados en un frigorífico. El sistema proporciona una interfaz web accesible a través de la red local para poder acceder desde cualquier dispositivo conectado a ésta, de esta forma siempre es posible controlar el estado del frigorífico. El sistema se trata de un sistema IdC, ya que se recogen datos del mundo físico a través de sensores y se muestran en una plataforma web. Para realizar el sistema IdC completo, el trabajo se dividió en dos subsistemas.
+
+El primer subsistema consiste en un sistema IdC en la niebla o neblina. En éste, se realiza la obtención de datos procedentes de los sensores por parte de un dispositivo Arduino. Así, estos datos son mínimamente procesados y enviados al servidor para que éste los utilice posteriormente.
+
+A continuación, se implementó un sistema IdC en la nube. Este sistema obtiene los datos enviados por los dispositivos Arduino y los almacena en una base de datos. Además, proporciona un sistema web en el cual se permite la visualización de estos datos y la distribución de éstos en diferentes ventanas con el objetivo de facilitar la comprensión de la información que se muestra.
+
+Ambos subsistemas definidos interactúan entre sí proporcionando al usuario una herramienta de visualización y gestión de los datos proporcionados por los sensores situados en el frigorífico. 
+
+El sistema IdC desplegado está disponible en todo momento y accesible para cualquier persona conectada a la red. El sistema permite obtener una monitorización de los datos de los sensores del frigorífico mediante un sistema web propio, además de diferentes acciones como crear una dieta específica para un usuario o visualizar la actividad de éste en un día en concreto.
+
+Para realizar el trabajo, se tuvieron que seguir una serie de etapas.
+
+En primer lugar, se realizó un estudio sobre la teoría de Internet de las Cosas y las \textit{Smarthomes}. Este estudio no fue realizado sin tener conocimiento previo de ambos campos. En las asignaturas de \textit{Tecnologías de Acceso a Red} y \textit{Fundamentos de redes} se realizó una introducción sobre estos temas, ya que están íntimamente relacionados con las redes de computadores.
+
+Una vez que se tenía una base sobre ambos temas y sus posibles aplicaciones en la vida real, se procedió a realizar el estudio y selección de elementos hardware a incorporar el sistema. El conocimiento obtenido a través de la asignatura \textit{Fundamentos de electrónica} fue la base para escoger los sensores en base a las características del sistema. Además de escoger los sensores se tuvo qué elegir el protocolo de comunicación entre estos. esta tarea no fue tan complicada porque se tenían conocimientos proporcionados en la asignatura \textit{Transmisión de datos y redes de computadores}. Una vez obtenidos estos dispositivos hardware, se procedió a realizar la conexión y configuración de estos. Concretamente el dispositivo Arduino fue puesto en funcionamiento ya que previamente se había usado en la asignatura \textit{Arquitectura de computadores}.
+
+Una vez se implantó el sistema hardware formado por los sensores y controladores, se diseñó un sistema web. Este diseño se realizó siguiendo las pautas de las asignaturas \textit{Desarrollo de interfaces de usuario} y \textit{Bases de datos}. Una vez diseñado el sistema, se procedió a implementarlo. Para realizar la programación web se hizo uso de conocimientos obtenidos en \textit{Tecnologías web}.
+
+El sistema está en funcionamiento en un sistema local. Para configurarlo y que se iniciara solo una vez arrancado el sistema se han usado conocimientos obtenidos en \textit{Sistemas operativos Y Administración de redes} y \textit{Sistemas operativos}.
+
+En conclusión, a partir de los conceptos aprendidos en las asignaturas del grado, ha sido posible realizar la implementación de un sistema de monitorización de un frigorífico. Este sistema ha servido para comprender los conceptos de Internet de las Cosas y de las \textit{Smarthomes}.
+
+\section{Trabajo futuro}
+El sistema que se ha implementado permite al usuario la monitorización del frigorífico cuando éste lo desee. Sin embargo, la información que se muestra al usuario se trata solamente de datos obtenidos mediante los sensores.
+
+Además de visualizar la información de los sensores, se podría haber permitido la ejecución de actuaciones en base a los datos que proporcionan estos. Es verdad que en este proyecto se realizan algunas actuaciones como por ejemplo enviar un mensaje al usuario si no cumple la dieta especificada, pero podría hacerse otro tipo de actuaciones con un conjunto de actuadores, como por ejemplo, un actuador que cierre la puerta del frigorífico automáticamente si lleva más de un tiempo determinado abierta, entendiendo que el usuario se la ha dejado abierta sin querer.
+
+Por otra parte, el sistema cuenta con varias páginas webs que te permiten interaccionar con éste, y manda avisos a través de correo electrónico. Un posible proyecto futuro sería la creación de una aplicación específica para dispositivos móviles que permita realizar todas las acciones que se hacen desde las páginas webs. De esta manera, la visualización de los datos sería más cómoda, y los avisos podrían convertirse en notificaciones en el propio dispositivo en vez de ser correos electrónicos.
+
+En conclusión, se ha implementado un sistema que se trata de la base para desarrollar un frigorífico inteligente completamente adaptado al usuario. 
