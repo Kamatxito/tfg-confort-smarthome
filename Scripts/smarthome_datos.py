@@ -1,7 +1,9 @@
-# En este script se realiza todo el proceso de recogida de datos de los sensores a traves de la
-# API de la SmartHome. Esos datos se almacenan en dos bases de datos: una tipo temporal, 
-# influxDB; y otra tipo no SQL, mongoDB. Por último, también guarda en un fichero de texto una
-# copia de todos los datos que recoge
+#
+# --- SCRIPT DE RECOGIDA DE DATOS EN LA SMARTHOME --- 
+#
+# En este script se realiza todo el proceso de recogida de datos de los sensores a traves de la API de la SmartHome.
+# Esos datos se almacenan en dos bases de datos: una tipo temporal, influxDB; y otra tipo no SQL, mongoDB. 
+# Por último, también guarda en un fichero de texto una copia de todos los datos que recoge.
 
 from time import sleep
 import requests
@@ -11,48 +13,43 @@ from influxdb import InfluxDBClient
 import pytz
 import pymongo
 
+# Variables y estructuras necesarias
+api_Dir = "http://remote:LabSmarthome21@192.168.7.210/scada-remote" # Direccion de la API
+parametros = { # Parametros para la conexion a la API
+    'm': 'json', # Formato de salida
+    'r': 'grp', # Request
+    'fn': 'getvalue', # Función a ejecutar
+    'alias': '3/1/1' # Dirección del objeto
+}
+
+# Método que realiza una petición a la API y obtiene los datos del sensor actual
+def obtener_datos_sensor(alias):
+    parametros['alias'] = alias
+    resultadoPeticion = requests.get(url=api_Dir, params=parametros)
+    datos = resultadoPeticion.json()
+    if alias not in ['3/2/10', '2/3/7']:
+        datos += 0.0
+    return datos
+
+# PROGRAMA PRINCIPAL
+
 while (True):
 
     # PARTE 1: RECOGIDA DE DATOS
 
-    dir = "http://remote:LabSmarthome21@192.168.7.210/scada-remote" # Direccion de la API
-
-    parametros = { # Parametros para la conexion a la API
-        'm': 'json', # Formato de salida
-        'r': 'grp', # Request
-        'fn': 'getvalue', # Función a ejecutar
-        'alias': '3/1/1' # Dirección del objeto
-    }
-
-    def peticion_datos(parametros): # Conexion y peticion a la API
-        r = requests.get(url=dir, params=parametros)
-        return r.json()
-
     # Datos que se recogen de la SmartHome
-    tempInterior = peticion_datos(parametros)
-    tempInterior += 0.0
-    #print(tempInterior)
-    parametros['alias'] = '3/2/5' # Alias del siguiente sensor
-    tempExterior = peticion_datos(parametros)
-    tempExterior += 0.0 # Para evitar valores enteros
-    parametros['alias'] = '3/2/1'
-    CO2 = peticion_datos(parametros)
-    CO2 += 0.0 # Para evitar valores enteros
-    parametros['alias'] = '3/2/2'
-    humedadInterior = peticion_datos(parametros)
-    humedadInterior += 0.0 # Para evitar valores enteros
-    parametros['alias'] = '3/2/4'
-    velocidadViento =  peticion_datos(parametros)
-    velocidadViento += 0.0 # Para evitar valores enteros
-    parametros['alias'] = '3/2/6'
-    luxExterior = peticion_datos(parametros)
-    luxExterior += 0.0 # Para evitar valores enteros
-    parametros['alias'] = '3/2/10'
-    lluvia = peticion_datos(parametros)
+    tempInterior = obtener_datos_sensor('3/1/1')
+    tempExterior = obtener_datos_sensor('3/2/5')
+    CO2 = obtener_datos_sensor('3/2/1')
+    humedadInterior = obtener_datos_sensor('3/2/2')
+    velocidadViento = obtener_datos_sensor('3/2/4')
+    luxExterior = obtener_datos_sensor('3/2/6')
+    lluvia = obtener_datos_sensor('3/2/10')
+    alturaEstorDormitorio = obtener_datos_sensor('2/3/7')
 
     # PARTE 2: ENVIO DE DATOS A BD INFLUX Y A BD MONGO
 
-    # Configurar conexiones...
+    # Configurar conexiones a influx y mongoDB
     conexInfluxDB = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'smarthome') # ... a InfluxDB
     conexMongoDB = pymongo.MongoClient("mongodb://localhost:27017/") # ... a mongoDB
     mongoDBActual = conexMongoDB["smarthome"]
@@ -63,8 +60,9 @@ while (True):
     now = datetime.now(zonaHoraria)
 
     # Se configura un payload, carga util, para cada una de las medidas que se realizan y se actualiza la base de datos
-    # Temperatura
     json_payload = []
+
+    # Temperatura interior
     data = {
         "measurement": "tempInterior",
         "time": now,
@@ -76,6 +74,8 @@ while (True):
     # Se debe insertar ya en la mongoDB y cambiar la coleccion
     mongoColecActual.insert_one(data)
     mongoColecActual = mongoDBActual["tempExterior"]
+
+    # Temperatura exterior
     data = {
         "measurement": "tempExterior",
         "time": now,
@@ -87,7 +87,7 @@ while (True):
     mongoColecActual.insert_one(data)
     mongoColecActual = mongoDBActual["CO2"]
 
-    # Contaminación
+    # CO2
     data = {
         "measurement": "CO2",
         "time": now,
@@ -99,7 +99,7 @@ while (True):
     mongoColecActual.insert_one(data)
     mongoColecActual = mongoDBActual["humedadInterior"]
 
-    # Humedad
+    # Humedad relativa interior
     data = {
         "measurement": "humedadInterior",
         "time": now,
@@ -123,7 +123,7 @@ while (True):
     mongoColecActual.insert_one(data)
     mongoColecActual = mongoDBActual["luxExterior"]
 
-    # Luminosidad
+    # Luminosidad exterior
     data = {
         "measurement": "luxExterior",
         "time": now,
@@ -144,6 +144,18 @@ while (True):
         }
     }
     json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["alturaEstorDormitorio"]
+
+    # Altura del estor del dormitorio
+    data = {
+        "measurement": "alturaEstorDormitorio",
+        "time": now,
+        "fields": {
+            'value': alturaEstorDormitorio
+        }
+    }
+    json_payload.append(data)
     conexInfluxDB.write_points(json_payload)
     mongoColecActual.insert_one(data)
 
@@ -157,13 +169,13 @@ while (True):
     if(fileObj.is_file()):
         f = open('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha+'.txt', 'a')
         f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
-        f.close
+        f.close()
     else:
         print('No existe el fichero')
         f = open('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha+'.txt', 'w')
         f.write('HORA\tTEMPERATURA INT.\tTEMPERATURA EXT.\tCO2\tHUMEDAD INT.\tVEL. VIENTO\tLUMINOSIDAD EXT.\tLLUVIA\n')
         f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
-        f.close
+        f.close()
     
     print("Datos registrados correctamente: " + str(fecha) + " " + str(hora))
 
