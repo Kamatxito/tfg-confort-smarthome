@@ -37,51 +37,6 @@ Con todo lo anterior en mente, el objetivo principal del proyecto consiste en ob
     \end{itemize}
 \end{itemize}
 
-\section{SmartHome y KNX}
-
-La \textit{smarthome} de la Universidad de Almería es un laboratorio construido con el objetivo de que tanto personal universitario como los propios alumnos pudieran investigar, trabajar y aprender sobre \textit{IoT}. La estancia está totalmente conectada a través del protocolo KNX, con el que se ha construido un ecosistema de dispositivos, sensores y actuadores con los que continuamente se realizan avances y nuevas investigaciones.
-
-Algunos de los sensores que la componen son de temperatura, humedad, CO2 o luminosidad. Además de actuadores como los estores de las ventanas, aire acondicionado o incluso las luces. Sin embargo, no todo está conectado por KNX, sino que hay otros dispositivos conectados a la subred de la smarthome a través de TCP/HTTP por WiFi, como el altavoz Sonos, cámaras de seguridad o la Smart TV \cite{intro_4}.
-
-\begin{figure}
-    \centering
-    \includegraphics{imagenes/capitulo1/mapaSmarthome.png}
-    \caption{Esquema de sensores y actuadores de la Smarthome}
-    \label{fig:mapa_sensores}
-\end{figure}
-
-\subsection{Historia y desarrollo de KNX}
-
-El origen de KNX es el resultado de la evolución de la domótica en las últimas décadas del siglo XX, pues se originó con la unión de tres estándares de los noventa: \textit{European Home Systems Protocol} (EHS), el \textit{European Installation Bus} (EIB) y el \textit{BatiBUS}, que pertenecían respectivamente a la \textit{European Home Systems Association} (EHSA), la \textit{European Installation Bus Association} (EIBA) y el \textit{BatiBUS Club International} (BCI).
-
-El objetivo de esta unión era el desarrollo de un estándar común e internacional que facilitara la comunicación, gestión y compatibilidad de los dispositivos en el ámbito de la domótica. La estandarización de KNX junto con la aparición de las redes WiFi y los \textit{smartphones} proliferaron el desarrollo y el mercado de la domótica tanto a nivel industrial como doméstico durante los siguientes años \cite{intro_5}.
-
-Gracias a esta estandarización, el control sobre la iluminación, calefacción y cualquier dispositivo KNX está es un mismo sistema, que con el paso de los años tiende a ser cada vez más automático. KNX y la domótica en sí ha ido evolucionando desde permitir controlar dispositivos a través de un panel de control o el móvil hasta no tener que controlarlo, ya que ahora mediante distintas condiciones, algoritmos e inteligencias artificiales, las decisiones y acciones se ejecutan solas.
-
-Muchas veces, estas decisiones se toman en base a unos parámetros ideales. Por ejemplo, en este trabajo se usan parámetros atmosféricos como la temperatura o humedad, que el sistema trata de alcanzar y mantenerse. Muchas veces estos parámetros pueden ir directamente relacionados al consumo energético, de forma que se pueda controlar y limitar en todos los dispositivos, ya sea según el horario o avisando al usuario a través del móvil.
-
-\subsection{Bases y funcionamiento de KNX}
-
-Este protocolo parte de la idea de tener todos los dispositivos, que normalmente vamos a diferenciar entre sensores y actuadores, conectados a un “cable de comunicación” que permita intercambiar información entre ellos. Los sensores son dispositivos que detectan acciones y envían órdenes al bus en forma de telegramas. Los actuadores reciben estos telegramas y traducen las órdenes en acciones. De esta manera, un dispositivo sensor, por ejemplo, un sensor de presencia puede ordenarle a un dispositivo actuador como un relé que, siguiendo el ejemplo, encienda la luz.
-
-\begin{figure}
-    \centering
-    \includegraphics{imagenes/capitulo1/envioTelegrama.png}
-    \caption{Envío de un telegrama por el bus KNX}
-    \label{fig:envio_telegrama}
-\end{figure}
-
-Aunque la mayoría de los dispositivos se pueden englobar en sensores y actuadores, hay otros que no pueden agregarse a ninguna de estas categorías. Por ejemplo, hay muchos dispositivos con un objetivo visual, leyendo los valores de los sensores y actuadores pudiéndolo mostrar en pantallas a través de diferentes interfaces. También es común encontrar, sobre todo si la instalación es grande, un dispositivo que actúa como centro de control de toda la instalación KNX: los servidores web como SpaceLynk. Aunque más adelante hablaré algo más de este dispositivo, en resumen, permite no solo tener un control sobre todos los dispositivos conectados al bus, sino que tiene funcionalidades extras como el monitorio de la energía o el poder crear funciones lógicas que permitan codificar algoritmos que controlen los dispositivos según quiera el programador \cite{intro_6}.
-
-Como ya he comentado, todos los dispositivos se encuentran conectados al mismo cable o bus. Esto significa que el acceso de estos al bus debe regularse y que la mayoría de los datos que se envían por el bus se utilizan para identificar a cada dispositivo que envía o reciba información. 
-Este procesamiento no requiere de un dispositivo central que se encargue de dirigir los datos, sino que dicho trabajo se reparte entre todos los dispositivos del bus, ya que cada uno suele tener un microprocesador. Descentralizar la comunicación de dispositivos aporta gran autonomía al sistema, ya que, si fallara un dispositivo, no afectaría al resto de la instalación salvo a la que requiera específicamente de ese dispositivo. También aporta gran escalabilidad, aunque también depende en gran medida de la topología instalada, más adelante profundizaremos en ello.
-
-\subsection{Medios de comunicación existentes}
-
-\subsection{Topologías KNX más utilizadas}
-
-\subsection{Listado de sensores utilizados en este trabajo}
-
 % Los avances que se han producido en las tecnologías de redes son quizás los  más significativos en el mundo de hoy. Están ayudando a crear un mundo en el que las fronteras nacionales, las distancias geográficas y las limitaciones físicas se vuelven menos relevantes, presentando obstáculos cada vez menores.
 
 % Esta revolución en las tecnologías de redes han permitido la aparición de servicios que hacen más fáciles las actividades habituales de las personas. La utilización del correo electrónico, la consulta de páginas web repletas de contenido, o el uso de foros para compartir información con otras personas, son ejemplos claros de estas nuevas tendencias. 
