@@ -43,12 +43,28 @@ Durante el desarrollo del proyecto se han utilizado multitud de programas, lengu
         \label{fig:docker_logo}
     \end{figure}
 
-    \item \textbf{MongoDB: }
+    \item \textbf{MongoDB: }es una base de datos basada en documentos, unas estructuras de datos compuesto por pares de campo y valor, que a su vez se almacenan en colecciones, similar a lo que en bases de datos relacionales son las tablas. La elección de mongoDB se debe a la sencilla integración con Python y a la velocidad y eficienza de almacenamiento y recuperación de datos, gracias a su sistema de colecciones.
     \begin{figure}[h]
         \centering
-        \includegraphics[width=4cm]{imagenes/capitulo3/mongodbLogo.png}
+        \includegraphics[width=6cm]{imagenes/capitulo3/mongoDBLogo.png}
         \caption{Logo de MongoDB.}
         \label{fig:mongodb_logo}
+    \end{figure}
+
+    \item \textbf{InfluxDB: }es una base de datos de series temporales, es decir, los datos se organizan por horas. Al igual de MongoDB, InfluxDB tiene una integración sencilla con Python, también es una de las bases de datos más usadas en el campo del Internet de las cosas gracias a la facilidad que supone monitorear y visualizar los datos guardados en ella.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=6cm]{imagenes/capitulo3/influxDBLogo.png}
+        \caption{Logo de InfluxDB.}
+        \label{fig:influxdb_logo}
+    \end{figure}
+
+    \item \textbf{Grafana: }es un potente software al que se accede por interfaz web que permite monitorizar a través de paneles personalizables los datos registrado en InfluxDB. Su elección viene a partir de que el contenedor para Docker utilizado ya tiene InfluxDB integrado con Grafana, lo que facilita la comunicación de ambos software. Además de que permite trabajar de forma dinámica con diferentes rangos de tiempo, permite mostrar gráficos a tiempo real y tiene una avanzada personalización del panel donde se muestra toda la información.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=3cm]{imagenes/capitulo3/GrafanaLogo.png}
+        \caption{Logo de Grafana.}
+        \label{fig:grafana_logo}
     \end{figure}
     
 \end{itemize}
