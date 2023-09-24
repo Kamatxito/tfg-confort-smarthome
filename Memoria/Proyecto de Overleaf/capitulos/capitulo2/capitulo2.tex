@@ -41,6 +41,48 @@ Este procesamiento no requiere de un dispositivo central que se encargue de diri
 
 \subsection{Medios de comunicación existentes}
 
-\subsection{Topologías KNX más utilizadas}
+Es esta sección se va a profundizar en los principales medios de comunicación existentes para KNX, principalmente en el utilizado en la Smarthome: el Par trenzado KNX.
 
-\subsection{Listado de sensores utilizados en este trabajo}
+\begin{itemize}
+    \item \textbf{Par trenzado KNX (TP):} este es el medio más económico y usado, consta de un par de hilos trenzado (Twisted Pair, TP). Los dispositivos KNX se conectan al bus, que les proporciona tanto fuente de alimentación como los datos que intercambian entre ellos. La conexión se realiza a través de los denominados terminales bus, que actúan como un enchufe donde se pueden conectar tantos dispositivos como más cable de par trenzado. Este sistema aporta gran escalabilidad al sistema y seguridad, ya que aunque un dispositivo se desconecte o se rompa, el resto del sistema no se verá afectado.
+    
+    La forma de transmitirse los datos en de forma asíncrona, produciendo una breve bajada o subida de tensión en el caso de transmitir un 0 o un 1, respectivamente. En este medio, el telegrama es una combinación de campos que tiene diferentes objetivos:
+    \begin{itemize}
+        \item \textbf{Campo de control:} indica la prioridad que tiene el telegrama y si se ha repetido el envío o no.
+        \item \textbf{Campo de dirección:} indica la dirección física del emisor y la del destinatario.
+        \item \textbf{Campo de datos:} contiene los datos "útiles" que quiere enviar el emisor al receptor, como una orden o información.
+        \item \textbf{Campo de comprobación:} indica si se ha recibido correctamente el telegrama verificando la paridad, que se comprueba enviando unos bits de paridad y un byte de comprobación. Al sumarlos todos, el resultado debe ser siempre 0.
+    \end{itemize}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=8cm]{imagenes/capitulo2/Estructura de un telegrama KNX TP.png}
+        \caption{Estructura de un telegrama KNX TP.}
+        \label{fig:telegrama_KNX_TP}
+    \end{figure}
+    Como se ha mencionado antes, todos los dispositivos acceden al bus KNX enviando telegramas. Esto puede suponer un problema, porque si varios dispositivos envían a la vez telegramas, pueden producirse colisiones y haber pérdida de datos. Para ello se plantea un método de acceso al bus denominado CSMA/CA (Carrier Sense Multiple Access / Colission Avoidance) o de acceso aleatorio dependiendo de sucesos. Este sistema solo podrá enviar un telegrama si no hay ninguna otra transmisión en ese momento, en caso contrario se gestionarán en función de la prioridad indica en el campo de control. Si dos emisores con la misma prioridad envían a la vez datos, en el momento en el que uno que envíe un 1 se de cuenta de que otro está enviando un 0, el segundo es el que tiene la prioridad.
+    
+    \item \textbf{Powerline KNX (PL):} este medio aprovecha la instalación eléctrica ya existente en el edificio, no necesita un cable de bus como el KNX TP, sino que utiliza una de las tres fases y el neutro para transmitir los telegramas y aporta electricidad a los dispositivos.
+
+    El sistema que utiliza para transmitir la información es a través del método SFSK (Spread Frequency Shift Keying), que consiste en diferencia la transmisión de un 0 o un 1 al modificar la frecuencia de la señal, 105,5 kHz para un 0 y 115,2 kHz para un 1, superponiéndose a la tensión de red.
+
+    Gracias al aprovechamiento de la instalación eléctrica consigue ser otro medio rentable e ideal en la construcción de nuevos o rehabilitación de edificios.
+
+    Al ser el sistema de transmisión diferente, la estructura de los telegramanas es una extensión de los del KNX PL. Se componenen de:
+    \begin{itemize}
+        \item \textbf{Campo de ensayo:} se utiliza para la sincronización de comunicación entre dispositivos.
+        \item \textbf{Campos de preámbulo:} indican el inicio de la transmisión y gestionan el acceso al bus para tratar con las colisiones de telegramas.
+        \item \textbf{Campo de contenido:} contiene el telegrama KNX con todos los campos explicados anteriormente.
+        \item \textbf{Campo del ID del sistema:} indica a qué instalación KNX PL pertenece. Este campo es especialmente importante en edificios de pisos donde en una misma instalación eléctrica, pueden coexistir más de una instalación KNX.
+    \end{itemize}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=8cm]{imagenes/capitulo2/Estructura de un telegrama KNX PL.png}
+        \caption{Estructura de un telegrama KNX PL.}
+        \label{fig:telegrama_KNX_PL}
+    \end{figure}
+    
+    \item \textbf{Radiofrecuencia KNX (RF):}
+    \item \textbf{KNX IP:}
+\end{itemize}
+
+\subsection{Topologías KNX más utilizadas}

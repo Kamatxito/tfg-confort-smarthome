@@ -1,1 +1,396 @@
+% Python
+% Colores
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+% Estilo de Python
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+morekeywords={self},              % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false
+}}
+% Entorno de Python
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
 \chapter{Creación de históricos y las bases de datos}
+
+Para poder obtener los datos atmosféricos, con lo que trabajar después, será necesario desarrollar un \textit{script} que acceda recurrentemente a los sensores de la Smarthome y unas bases de datos donde almacenarlos. Empezando por la creación de las bases de datos, se han utilizado las ya mencionadas MongoDB e InfluxDB, a través de contenedores de Docker.
+
+Un contenedor de Docker está basado en una imagen, que no solo puede contener distintos sistemas operativos, sino que también pueden venir con software instalado y preparado para su funcionamiento.
+
+\section{Despliegue del contenedor InfluxDB/Grafana}
+
+La imagen usada para este contenedor es la \textit{philhawthorne/docker-influxdb-grafana}\cite{cap4_1}. Esta imagen basada en Linux tiene ya lista para usar la base de datos de InfluxDB y el visor de datos Grafana. Lo único que hace falta a la hora de desplegar, es establecer un punto de anclaje para la persistencia de datos usando el siguiente comando:
+
+\begin{lstlisting}[language=bash, breaklines=true]
+docker run -d --name smarthome-influxdb-grafana -p 3003:3003 -p 3004:8083 -p 8086:8086 --mount source=influxdb_vol,target=/var/lib/influxdb --mount source=grafana_vol,target=/var/lib/grafana philhawthorne/docker-influxdb-grafana:latest
+\end{lstlisting}
+
+De esta manera, junto al contenedor lanzado se crearán dos volúmenes: uno que contendrá los datos que almacene InfluxDB y otro que contendrá la interfaz, tablas, gráficas y el resto de configuración de Grafana.
+
+Una vez desplegado, es necesario crear el modelo de base de datos. Como se ha dicho previamente, InfluxDB es una base de datos de series temporales, por lo que no se va a crear un modelo de tablas con claves como las utilizadas en las bases de datos relacionales. En este caso el esquema que seguirá la base de datos será el siguiente:
+
+Primero está la base de datos como tal, que se titula ‘Smarthome’. La base de datos está compuesta por una serie de medidas, que se podría decir que usan la fecha y hora como clave primaria. Para este trabajo, habrá una colección para cada variable a registrar: CO2 interior, humedad interior, lluvia, luminosidad exterior, temperatura interior, temperatura exterior y velocidad el viento. Una representación del esquema se puede ver en la Figura 4.1.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=17cm]{imagenes/capitulo4/esquemaBD.png}
+    \caption{Esquema de InfluxDB utilizado.}
+    \label{fig:esquema_influxdb}
+\end{figure}
+
+Con todo esto hecho, ya se pueden agregar datos en cada colección. Una característica de InfluxDB, es que no es necesario crear las medidas previamente, sino que se crean al insertar datos. Más adelante se tratará el tema de agregar datos, aunque en la Figura 4.2 se ve un ejemplo de cómo quedan registrados los datos en el parámetro de temperatura exterior.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=6cm]{imagenes/capitulo4/ejemploConsultaInfluxDB.png}
+    \caption{Ejemplo de diferentes registros de datos en la variable de temperatura exterior.}
+    \label{fig:ejemplo_influxdb}
+\end{figure}
+
+Para navegar por las bases de datos, medidas, listados o cualquier configuración o funcionalidad de InfluxDB, no utiliza interfaz gráfica, sino que se utilizan comandos desde el terminal del contendor\cite{cap4_2}. Algunos de los más utilizados son:
+
+\begin{itemize}
+    \item \textit{influx}: para conectarse desde la terminal del contenedor a la de InfluxDB.
+    \item \textit{show databases}: para listar las bases de datos existentes.
+    \item \textit{create database smarthome}: para crear una base de datos.
+    \item \textit{use smarthome}: para acceder a una base de datos.
+    \item \textit{show measurements}: para listar los medidas creadas en la base de datos seleccionada.
+    \item \textit{precision rfc3339}: formatea la columna de tiempo para hacerla más legible.
+    \item \textit{select * from tempExterior}: lista todos los valores de una medida. Es compatible con sentencias where o limit como en consultas SQL.
+\end{itemize}
+
+\section{Despliegue del contenedor MongoDB}
+
+La imagen usada para el contenedor de MongoDB es la oficial publicada en DockerHub: mongo\cite{cap4_3}. Al igual que la usada con InfluxDB, esta es una imagen basada en Debian, específicamente Ubuntu, que tiene ya instalado MongoDB y listo para funcionar. En este caso solo será necesario un único volumen, que almacenará los datos de la base de datos, estableciendo un punto de anclaje en el despliegue:
+
+\begin{lstlisting}[docker run -d --name smarthome-mongoDB -p 27017:27017 -v "mongodb_vol:/data/db" mongo
+\end{lstlisting}
+
+Una vez desplegado, es necesario crear también el modelo de base de datos. Al igual que con InfluxDB, estamos ante una base de datos no relaciones. Sin embargo, en lugar de basarse en series temporales, MongoDB funciona con colecciones. En este caso el esquema que seguirá será el siguiente:
+
+Primero está la base de datos en sí, que se titula también ‘Smarthome’. La base de datos estará formada por colecciones, objetos con una número flexible de parámetros, que se identifican con un ID asignado automática al insertar el dato. Para este trabajo tendremos una colección para cada variable a registrar: CO2 interior, humedad interior, lluvia, luminosidad exterior, temperatura interior, temperatura exterior y velocidad el viento. Una representación del esquema se puede ver en la Figura 4.3.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=17cm]{imagenes/capitulo4/esquemaMongoBD.png}
+    \caption{Esquema de MongoDB utilizado.}
+    \label{fig:esquema_influxdb}
+\end{figure}
+
+A la hora de insertar datos, es necesario saber que los objetos de MongoDB son muy escalables. Por ejemplo, inicialmente se pueden estar guardando solo los valores de las medidas junto a su fecha, pero si es necesario se pueden ir agregando parámetros de forma dinámica, sin modificar los anteriores objetos. Un ejemplo de cómo se guardan los datos en la colección de temperatura exterior es el expuesto en la Figura 4.4.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=17cm]{imagenes/capitulo4/ejemploMongoDB.png}
+    \caption{Ejemplo de diferentes registros de datos en la variable de temperatura exterior.}
+    \label{fig:ejemplo_mongodb}
+\end{figure}
+
+Los objetos con datos guardados en MongoDB también se les conoce como documentos. Esto facilita desde el código la implementación de una estructura de datos que preparar para la inserción, en este caso tendría esta forma:
+
+\begin{python}
+data = {
+        "measurement": "tempExterior",
+        "time": now,
+        "fields": {
+            'value': tempExterior
+        }
+    }
+\end{python}
+
+Al igual que en InfluxDB, para navegar por las bases de datos y las colecciones se utiliza un terminal lanzado desde el contenedor. Algunos de los comandos más utilizados son:
+
+\begin{itemize}
+    \item \textit{mongo}: para conectarse desde la terminal del contenedor a la de MongoDB.
+    \item \textit{show databases}: para listar las bases de datos existentes.
+    \item \textit{use smarthome}: para activar la base de datos elegida.
+    \item \textit{show collections}: para listar las colecciones de la base de datos activa.
+    \item \textit{db.createCollection("tempExterior")}: para crear una colección en la base de datos activa.
+    \item \textit{db.tempExterior.insert({value: '27.3'})}: para insertar una entrada en una colección de la base de datos activa.
+    \item \textit{db.tempExterior.find()}: para listar todas las entradas de una colección de la base de datos activa.
+\end{itemize}
+
+\section{Script de recogida y almacenamiento de datos}
+
+Una vez preparadas las bases de datos, ya son accesibles desde código. Como se adelantó en el capítulo 3, el lenguaje de programación escogido es Python. Gracias a su versatilidad y compatibilidad con sus numerosos módulos, el script se encargará tanto de la recogida de datos como de su almacenamiento en las bases de datos. Por ello, se puede dividir el script en las siguientes partes:
+
+\begin{itemize}
+    \item \textbf{Parte 1. Recogida de datos:} en esta primera parte se realizan peticiones GET a los sensores de la Smarthome para almacenar sus valores en cada variable. Para ello se hace uso del método \textit{obtener\_datos\_sensor}, que se encarga de preparar, enviar y recibir la información de la petición GET.
+    
+    \begin{python}
+    def obtener_datos_sensor(alias):
+        parametros['alias'] = alias
+        resultadoPeticion = requests.get(url=api_Dir, params=parametros)
+        datos = resultadoPeticion.json()
+        if alias not in ['3/2/10', '2/3/7']:
+            datos += 0.0
+        return datos
+    \end{python}
+    
+    Dicha petición requiere dos campos: la dirección de la API, que en este caso sería la dirección de la unidad central; y los parámetros necesarios, que siempre serán los mismos salvo el alias. El alias se refiere a la dirección de grupo del sensor en cuestión, variará cada vez que se quiera guardar una variable distinta.
+    
+    \begin{python}
+    parametros = { # Parametros para la conexion a la API
+        'm': 'json', # Formato de salida
+        'r': 'grp', # Request
+        'fn': 'getvalue', # Función a ejecutar
+        'alias': '3/1/1' # Dirección del objeto
+    }
+    \end{python}
+
+    Todos los parámetros que se envían en la petición son:
+
+    \begin{itemize}
+        \item ‘m’: se refiere al formato de salida. En este caso se utiliza ‘json’, un formato sencillo muy extendido en el intercambio de datos.
+        \item ‘r’: se refiere al tipo de petición. En este caso se utiliza ‘grp’ para indicar que se va a acceder a una dirección de grupo.
+        \item ‘fn’: se refiere a la función a ejecutar. En este caso se utiliza ‘getvalue’ para indicar que se van a obtener datos.
+        \item‘alias’: se refiere a la dirección de grupo.
+    \end{itemize}
+
+    Una vez realizada la petición, se realizará una pequeña modificación sobre los campos que contengan decimales. Esto se debe a que cuando, por ejemplo, la temperatura tiene un valor entero, puede generar problemas en el script. Por ello, al realizar una suma de 0.0, se evitan este tipo de conflictos.
+
+    \item \textbf{Parte 2. Envío de datos a InfluxDB y MongoDB:} esta parte se encarga de cargar los datos de cada variable a las bases de datos. Para ello, primero se configurarán las conexión y se establece ya la primera colección en el caso de MongoDB, en este caso “tempInterior”. Los envíos de datos se realizan mediante un payload, o carga útil, que consiste en un array formada por objetos data con todos los campos a guardar.
+
+    \begin{python}
+    data = {
+        "measurement": "tempInterior",
+        "time": now,
+        "fields": {
+            'value': tempInterior
+        }
+    }
+    \end{python}
+
+    La carga útil sirve solo para InfluxDB, que realiza una única inserción una vez todos los datos se han recogido y añadido al payload. Por otro lado, con MongoDB, se insertará una vez por cada variable, teniendo que cambiar la colección desde el código cada vez
+
+    \item \textbf{Parte 3. Exportación de datos:} la última parte consiste en una forma de extra de guardar los datos. Consiste en un fichero de texto dividido en filas y columnas: cada columna representa una de las variables registradas y cada filas un registro de datos en una hora específica del día. Se genera un fichero por cada día.
+
+    El objetivo de esta exportación de datos extra es tener a mano los registros por días y poder importarlo a otros formatos como Excel, gracias a que está separado por tabulaciones. De esta manera queda facilitada también su extracción para poder realizar representaciones y estudios sobre los datos.
+\end{itemize}
+
+El objetivo es que este script se mantenga permanentemente en ejecución, por lo que se le tiene que configurar la periodicidad con el que se lanza usando la función \textit{sleep}. Esta función utiliza los segundos como parámetro, por lo que si se quiere ejecutar una lectura y registro de datos cada 5 minutos, primero se tendrá que multiplicar por 60. El script utilizado al completo es el siguiente:
+
+\begin{python}
+    #
+# --- SCRIPT DE RECOGIDA DE DATOS EN LA SMARTHOME --- 
+#
+# En este script se realiza todo el proceso de recogida de datos de los sensores a traves de la API de la SmartHome.
+# Esos datos se almacenan en dos bases de datos: una tipo temporal, influxDB; y otra tipo no SQL, mongoDB. 
+# Por último, también guarda en un fichero de texto una copia de todos los datos que recoge.
+
+from time import sleep
+import requests
+from datetime import datetime
+from pathlib import Path
+from influxdb import InfluxDBClient
+import pytz
+import pymongo
+
+# Variables y estructuras necesarias
+api_Dir = "http://remote:LabSmarthome21@192.168.7.210/scada-remote" # Direccion de la API
+parametros = { # Parametros para la conexion a la API
+    'm': 'json', # Formato de salida
+    'r': 'grp', # Request
+    'fn': 'getvalue', # Función a ejecutar
+    'alias': '3/1/1' # Dirección del objeto
+}
+
+# Método que realiza una petición a la API y obtiene los datos del sensor actual
+def obtener_datos_sensor(alias):
+    parametros['alias'] = alias
+    resultadoPeticion = requests.get(url=api_Dir, params=parametros)
+    datos = resultadoPeticion.json()
+    if alias not in ['3/2/10', '2/3/7']:
+        datos += 0.0
+    return datos
+
+# PROGRAMA PRINCIPAL
+
+while (True):
+
+    # PARTE 1: RECOGIDA DE DATOS
+
+    # Datos que se recogen de la SmartHome
+    tempInterior = obtener_datos_sensor('3/1/1')
+    tempExterior = obtener_datos_sensor('3/2/5')
+    CO2 = obtener_datos_sensor('3/2/1')
+    humedadInterior = obtener_datos_sensor('3/2/2')
+    velocidadViento = obtener_datos_sensor('3/2/4')
+    luxExterior = obtener_datos_sensor('3/2/6')
+    lluvia = obtener_datos_sensor('3/2/10')
+    alturaEstorDormitorio = obtener_datos_sensor('2/3/7')
+
+    # PARTE 2: ENVIO DE DATOS A BD INFLUX Y A BD MONGO
+
+    # Configurar conexiones a influx y mongoDB
+    conexInfluxDB = InfluxDBClient('localhost', 8086, 'admin', 'admin', 'smarthome') # ... a InfluxDB
+    conexMongoDB = pymongo.MongoClient("mongodb://localhost:27017/") # ... a mongoDB
+    mongoDBActual = conexMongoDB["smarthome"]
+    mongoColecActual = mongoDBActual["tempInterior"]
+
+    # La zona horaria sera UTC para evitar problemas de incompatibilidad con Grafana
+    zonaHoraria = pytz.timezone('UTC') 
+    now = datetime.now(zonaHoraria)
+
+    # Se configura un payload, carga util, para cada una de las medidas que se realizan y se actualiza la base de datos
+    json_payload = []
+
+    # Temperatura interior
+    data = {
+        "measurement": "tempInterior",
+        "time": now,
+        "fields": {
+            'value': tempInterior
+        }
+    }
+    json_payload.append(data)
+    # Se debe insertar ya en la mongoDB y cambiar la coleccion
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["tempExterior"]
+
+    # Temperatura exterior
+    data = {
+        "measurement": "tempExterior",
+        "time": now,
+        "fields": {
+            'value': tempExterior
+        }
+    }
+    json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["CO2"]
+
+    # CO2
+    data = {
+        "measurement": "CO2",
+        "time": now,
+        "fields": {
+            'value': CO2
+        }
+    }
+    json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["humedadInterior"]
+
+    # Humedad relativa interior
+    data = {
+        "measurement": "humedadInterior",
+        "time": now,
+        "fields": {
+            'value': humedadInterior
+        }
+    }
+    json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["velocidadViento"]
+
+    # Velocidad del viento
+    data = {
+        "measurement": "velocidadViento",
+        "time": now,
+        "fields": {
+            'value': velocidadViento
+        }
+    }
+    json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["luxExterior"]
+
+    # Luminosidad exterior
+    data = {
+        "measurement": "luxExterior",
+        "time": now,
+        "fields": {
+            'value': luxExterior
+        }
+    }
+    json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["lluvia"]
+
+    # Lluvia
+    data = {
+        "measurement": "lluvia",
+        "time": now,
+        "fields": {
+            'value': lluvia
+        }
+    }
+    json_payload.append(data)
+    mongoColecActual.insert_one(data)
+    mongoColecActual = mongoDBActual["alturaEstorDormitorio"]
+
+    # Altura del estor del dormitorio
+    data = {
+        "measurement": "alturaEstorDormitorio",
+        "time": now,
+        "fields": {
+            'value': alturaEstorDormitorio
+        }
+    }
+    json_payload.append(data)
+    conexInfluxDB.write_points(json_payload)
+    mongoColecActual.insert_one(data)
+
+    # PARTE 3: EXPORTACION DE DATOS EN TXT
+
+    now = datetime.now()
+    fecha = now.strftime('%d-%m-%Y')
+    hora = now.strftime('%H:%M')
+    # Debemos comprobar si existe el archivo para añadir la cabecera o no
+    fileObj = Path('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha + '.txt')
+    if(fileObj.is_file()):
+        f = open('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha+'.txt', 'a')
+        f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
+        f.close()
+    else:
+        print('No existe el fichero')
+        f = open('C:\\Users\\TFG3\\Desktop\\David TFG\\txtLogs\\' + fecha+'.txt', 'w')
+        f.write('HORA\tTEMPERATURA INT.\tTEMPERATURA EXT.\tCO2\tHUMEDAD INT.\tVEL. VIENTO\tLUMINOSIDAD EXT.\tLLUVIA\n')
+        f.write(hora + '\t%2.1f\t%2.1f\t%3.2f\t%d\t%d\t%4.2f\t%d\n' % (tempInterior, tempExterior, CO2, humedadInterior, velocidadViento, luxExterior, not lluvia))
+        f.close()
+    
+    print("Datos registrados correctamente: " + str(fecha) + " " + str(hora))
+
+    sleep(5 * 60)
+\end{python}
+
+\section{Representación de los datos}
+
+El contenedor de InfluxDB tiene incluida también la instalación de Grafana, un software de visualización y representación de datos. La visualización de representa a través de diversos módulos como gráficas, imágenes o tablas que se añaden en una \textit{dashboard}, o panel principal.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{imagenes//capitulo4/dashboard.png}
+    \caption{\textit{Dashboard} de todas variables recogidas de la \textit{Smarthome}.}
+    \label{fig:dashboard}
+\end{figure}
+
+El \textit{Dashboard} se divide en tres partes diferenciadas:
+
+\begin{itemize}
+    \item \textbf{Cabecera:} donde se muestra el logo de la UAL y un reloj con la hora actual.
+    \item \textbf{Valores actuales:} representados con un medidor cada una de las variables, muestra el último valor registrado en cada caso. A su vez, cada medidor tiene 3 secciones con los colores verde, amarillo y rojo, representando valores normales, moderados y altos:
+    \begin{itemize}
+        \item \textbf{Temperatura interior:}
+        \item \textbf{Temperatura exterior:}
+        \item \textbf{Humedad interior:}
+        \item \textbf{Velocidad del viento:}
+        \item \textbf{Luminosidad exterior:}
+        \item \textbf{CO2:}
+    \end{itemize}
+    \item \textbf{Gráficas en el tiempo:} en estas gráficas están representadas los valores de cada variable en función del tiempo. El eje de ordenadas puede modificarse para visualizar espacios específicos de tiempo.
+\end{itemize}
