@@ -1,0 +1,47 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% ESTO ES PARA LA TABLA DE CONTENIDOS (INDICE)%%%%%%%%%%%%%%%%
+
+
+\setcounter{secnumdepth}{3} %niveles en capitulos hasta (1.1.1)
+\setcounter{tocdepth}{3} %niveles en indice hasta (1.1)
+
+
+\addtocontents{toc}{~\hfill\small{Página}\par} %añade "pagina" a tabla de contanidos
+\addtocontents{toc}{\vspace{2pt} \hrule \vspace{5mm} \par}
+
+%\renewcommand\contentsname{Índice de contenidos}
+\tableofcontents
+\listoffigures % indice de figuras
+\listoftables % indice de tablas
+\lstlistoflistings % indice de listados
+
+
+
+%---------------------------------------------------------------------------
+% comienzo de relacion abreviaturas y/o acrónimos
+%---------------------------------------------------------------------------
+
+
+%\addcontentsline{toc}{section}{ABREVIATURAS}
+\clearpage
+\vspace{0.2cm}
+\section*{ABREVIATURAS}
+
+\begin{tabular}{ l   |    l  }
+	
+
+&\\
+   ESI & Escuela Superior de ingeniería \\
+   InSo & Ingeniería del Software \\
+    SBSE& Search based software engineering\\
+   TFG & Trabajo fin de grado\\
+   
+      UAL & Universidad de Almería \\
+      &\\
+
+\end{tabular}
+
+
+%\addcontentsline{toc}{section}{ABREVIATURAS}
+

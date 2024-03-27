@@ -1,0 +1,141 @@
+%\documentclass[11pt, oneside]{book}
+\documentclass[11pt, twoside]{book}  %importante cambiar si es libro
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Paquetes y librerías iniciales para un documento,
+%           Graficos, simbolos, tablas, bibliografía
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---------------------------------------------------------------------------
+% Esto es para que el LaTeX sepa que el texto está en español:
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\selectlanguage{spanish}
+%---------------------------------------------------------------------------
+% para uso en modo matemático
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+%---------------------------------------------------------------------------
+% Para las imagenes
+
+\usepackage[dvips]{graphicx}
+\graphicspath{{Figuras/}} % se fija el camino para las figuras
+\usepackage{rotating}  %para poder rotar las figuras
+\usepackage{wrapfig}
+
+%---------------------------------------------------------------------------
+% PIES DE FOTOS Y TABLAS
+
+\usepackage{float} % para objetos flotantes
+\usepackage{caption} % para los pies de fotos o tablas
+\usepackage{subcaption}
+\captionsetup{font=small,labelfont=bf} % para tamaño y tipo fuentes pie de foto
+\usepackage{multirow} % para las tablas unir columnas
+\usepackage{multicol} %para escribir en multiples columnas
+
+% Referencias y biblio
+
+\usepackage{pdfpages}
+%\usepackage[pdftex,breaklinks=true,hidelinks]{hyperref} % para referencias/indice en pdf
+
+\usepackage[
+breaklinks=true,colorlinks=true,
+linkcolor=blue,urlcolor=blue,citecolor=blue,% PDF VIEW
+linkcolor=black,urlcolor=black,citecolor=black,% PRINT
+bookmarks=true,bookmarksopenlevel=2]{hyperref}
+
+\usepackage{emptypage}
+\usepackage{ragged2e} %Justificacion
+
+%\usepackage[toc,title,page]{appendix}
+
+%Para bibliografía
+\usepackage[numbers,square]{natbib}
+\bibliographystyle{apalike}
+%\bibliographystyle{IEEEtran}
+
+%%%%%%%%% HAbituales estilos
+%plainnat
+%%abbrvnat
+%unsrtnat  %Items in bibliography sorted in order cited)
+%IEEEtran
+
+%
+
+%%%%%%%%%%%%%%%%%%%% Formato de la ual %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{UAL}
+%\usepackage[print,doble]{UAL}
+\usepackage{codigo}
+
+%%%%%% PAQUETES INCORPORADOS POR EL USUARIO
+
+\usepackage{longtable}   %Tablas largas
+\usepackage{verbatim}
+\usepackage{textcomp} %para completar los signos válidos
+\usepackage{eurosym} %simbolo del euro [\euro]
+\usepackage[bottom]{footmisc}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Datos identificativos del TFG                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{David Camacho Jurado}
+\titulo{Regulación del confort del \textit{smarthome} a partir de una estación meteorológica y sensores ambientales}
+\estudios{Grado en Informática}
+\universidad{UNIVERSIDAD DE ALMERIA}
+\director{Juana López Redondo}
+\direct{Marcos Lupión Lorente}
+\curso {2021/2022}
+
+
+\pagestyle{cab}
+
+\begin{document}
+\frontmatter
+
+\portada
+
+\begin{dedicatoria}
+    Texto de la dedicatoria
+\end{dedicatoria}
+
+
+\input{indicesyrefe}
+
+% Borra el bloque si sólo queremos resumen en contraportada
+\addcontentsline{toc}{chapter}{Resumen y Abstract}
+\chapter*{Resumen y Abstract}
+
+\input{resumentexto.tex}
+
+
+%se suelen utilizar archivos separados, por capitulos para agilizar la compilación en las versiones intermedias
+\mainmatter
+\marcagua
+
+\input{Capítulos/capitulo_1}
+
+%\input{contenido2}
+
+
+\addcontentsline{toc}{section}{BIBLIOGRAFÍA }
+\bibliography{referencias}
+
+\appendix
+%\clearpage
+
+\input{apendices}
+
+
+\clearpage
+\backmatter
+\input {contra}
+
+\end{document}

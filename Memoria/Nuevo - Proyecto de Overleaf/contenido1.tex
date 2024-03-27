@@ -1,0 +1,390 @@
+
+\chapter {Introducción}
+\label{sec:intro}
+
+
+En este documento se va a realizar una plantilla que mostrará tanto el formato como el posible contenido de un Trabajo fin de estudios modelo, para los estudios de informática de la Universidad del Almería.  \footnote{\url{https://www.overleaf.com/read/ngbvqvmzhymb}} \footnote{\url{https://github.com/imaguila/MemoriaTFG-UAL.git}}
+Servirá de  ayuda  para  la  realización  de  los trabajos  académicos  que,  durante  la  formación  universitaria,  constituyen  una  actividad  permanente.
+
+El trabajo académico requiere precisión y rigor conceptual, dominio de fuentes de información y capacidad de argumentación teórica.  No es un  resumen de las ideas de otras personas, sino una disertación sobre un tema, tomando como referencia  la información  que existe sobre el  mismo en diversas fuentes. Recuerda copiar de uno es un plagio, copiar de muchos investigación. \cite{malaga}
+
+Esta  plantilla está escrita en \LaTeX.
+El \LaTeX (escrito LaTeX en texto plano) es un sistema de composición de textos, orientado a la creación de documentos escritos que presenten una alta calidad tipográfica. Por sus características y posibilidades, es usado de forma especialmente intensa en la generación de artículos y libros científicos que incluyen, entre otros elementos, expresiones matemáticas. \cite{wiki}
+
+LaTeX está formado por un gran conjunto de macros de TeX con la intención de facilitar el uso del lenguaje de composición tipográfica,  \LaTeX, creado por Donald Knuth. Es muy utilizado para la composición de artículos académicos, tesis y libros técnicos, dado que la calidad tipográfica de los documentos. 
+
+Este lenguaje presupone una filosofía de trabajo diferente a la de los procesadores de texto habituales (conocidos como WYSIWYG, es decir, <<lo que ves es lo que obtienes>>) y se basa en instrucciones. Tradicionalmente, este aspecto se ha considerado una desventaja (probablemente la única). Sin embargo, LaTeX, a diferencia de los procesadores de texto de tipo WYSIWYG, permite a quien escribe un documento centrarse exclusivamente en el contenido, sin tener que preocuparse de los detalles del formato. Además de sus capacidades gráficas para representar ecuaciones, fórmulas complicadas, notación científica e incluso musical, permite estructurar fácilmente el documento (con capítulos, secciones, notas, bibliografía, índices analíticos, etc.), lo cual brinda comodidad y lo hace útil para artículos académicos y libros técnicos.
+
+Para la elaboración de esta guía además de la experiencia de su autora se ha utilizado como referencia las normas sobre Trabajos fin de Grado (TFG) y Trabajos Fin de Master (TFM) del diversas Universidades, entre ellas la Universidad de Málaga \cite{malaga} y la Universidad de Alicante \cite{alicante}
+
+
+\chapter{Consideraciones generales} 
+\label{sec:consideraciones}
+
+
+La lista de consideraciones puede ser amplia, pero hay unos requisitos clave que se tienen que verificar.
+El  escrito  tiene  un  carácter  formal,  de  ahí  que  no  se  puede  desarrollar  un  discurso  humorístico;  tampoco  recurrir  al  sarcasmo  y  al  empleo  de  un  vocabulario  coloquial.  El  lenguaje que se utilice ha de ser técnico, riguroso, analítico y preciso. 
+
+Aunque recoge el trabajo personal no se debe utilizar la  primera  persona  del  singular:  “yo...”; la fórmula que se ha de utilizar en la disertación es el impersonal: “se plantea...”, “la  tesis  de  la  que  se  parte...”  (y  no  “parto  de  la  tesis...”).  De  este  modo,  el  estilo  académico   utilizado   se   caracteriza   por   formas   verbales   pasivas,   pronombres   y   construcciones impersonales y vocabulario específico. En algunas ocasiones y por deformación del uso del inglés se puede utilizar la primera persona del plural, aunque en TFG/TFM no es recomendable, salvo que se describan trabajos específicos realizados en equipo.
+
+Es de vital importancia el uso correcto del lenguaje (ortografía, expresión, signos de puntuación).  Si es necesario se deben consultar diccionarios generales o específicos para aclarar significados de términos así como para el empleo de sinónimos y antónimos. 
+
+El  objetivo  fundamental  del  escrito  es  demostrar  los  propios  conocimientos  sobre  la  materia de la manera más completa posible. Es importante dar respuesta  a las  premisas,  las  preguntas  o  las  cuestiones  de  investigación  o  indagación  que  se  hayan  establecido como punto de partida y que tendrán que ser coherentes con los objetivos del trabajo.
+
+La forma es tan importante como el fondo. Es importante la coherencia del formato en especial en la bibliografía. Queda fuera de esta guía tratar sobre como realizar las citas y los distintos tipos de bibliografía. La biblioteca de la universidad ofrece cursos y asesoramiento para quienes lo necesiten. Cabe descartan, que cada disciplina utiliza distintos tipos de normas para la realización de las citas.
+
+En líneas generales, el trabajo académico consta de cuatro partes importantes: la introducción, el desarrollo, las conclusiones y las referencias bibliográficas. A estas cuatro se le añade una quinta relativa  a  los  anexos  (información  complementaria  y/o  aclaratoria), aunque los trataremos con detalle en el capítulo \ref{sec:apartados}.  Es  importante  conocer  que  la  estructura de la memoria no  es  la  que  se  sigue  secuencialmente cuando  una  persona  se  plantea escribir el documento. Por  ejemplo,  la  introducción,  que  es  la  primera  parte  de  todo  trabajo,  es  la  última que se elabora.
+
+Cuando  una  persona  se  enfrenta  a  este  tipo  de  trabajos no obtiene una memoria “a la primera” ni “de una sola vez”. Antes de llegar al texto definitivo, éste debe haber pasado por varios borradores y numerosos cambios y reordenaciones.
+
+Puesto que es necesaria una colaboración estrecha entre alumnos y tutores del trabajo, buscar entornos de edición colaborativa puede se una buena solución. La mejor recomendación es \url{https://www.overleaf.com} que además de numerosas plantillas ofrece una ayuda inestimable sobre el lenguaje \LaTeX{}, que si bien no es profunda, si se tocan brevemente todos los temas.
+
+\chapter{Normas fundamentales del formato} 
+\label{sec:funda}
+
+La memoria del Trabajo Fin de Grado/Máster se presentará en formato  UNE  A4,  salvo  que  las  características  especiales  del  trabajo  presentado  no  lo permitieran.
+
+\section {Estilo,  Tipografía y    Maquetado}
+
+Se podrán utilizar las siguientes familias de tipos de letras \url{https://tug.org/FontCatalogue/}, no se recomiendan tipos de letras con decoración excesiva:
+
+	\begin{center}
+	\begin{tabular}{p{2cm}p{7.5cm}c}
+		\textbf{Tipo} & \textbf{Fuente} & \textbf{Anchura} \\ \hline
+         Familia 1 & Arial, Helvética, Tahoma  	\ldots & Variable \\
+         Familia 2 & Times New Roman, Palatino  Linotype,  	\ldots & Variable  \\
+         Familia 3 & Courier  New,  Miriam Fixed \ldots & Fija\\
+         \hline
+	\end{tabular}
+	\end{center}
+
+
+
+\begin{table} 
+	\begin{center}
+	\begin{tabular}{l c c}
+		\textbf{Tipo} & \textbf{Fuente} & \textbf{Anchura} \\ \hline
+         Familia 1 & Arial, Helvética, Tahoma  	\ldots & Variable \\
+         Familia 2 & Times New Roman, Palatino  Linotype,  	\ldots & Variable  \\
+         Familia 3 & Courier  New,  Miriam Fixed \ldots & Fija \\
+         \hline
+	\end{tabular}
+	\end{center}
+
+	\caption{\label{tab:letras}Tipos de letras.}
+\end{table}
+
+
+La familia 1 se recomienda para los títulos de las distintas secciones del documento.
+
+La familia 2 se recomienda para los párrafos normales.
+
+La familia 3 se recomienda para escribir, por ejemplo, porciones de código, debido a su tamaño fijo donde es necesario un texto tabulado y se alinee perfectamente, así como cualquier otro uso de texto de tamaño de letra fijo.
+
+Se recomienda el uso del tipo de letra Palatino Linotype en itálica para la escritura de fórmulas sencillas, para aquellas que sean más complejas se podrá usar un editor de ecuaciones, ejemplos:
+
+$ x^2+y^2=r^2,    a+b=c$
+
+Si fuese necesario se puede utilizar un entorno ecuación para después poder referenciarlo en el texto. La ecuacion  \ref{ec:ecuacion} es un ejemplo, pero se convierte en un flotante como las tablas y las figuras. La potencia de \LaTeX{} para la edición de ecuaciones supera el alcance de este documento, se sugiere consultar otras fuentes para ampliar la información sobre su uso.
+
+\begin{equation}
+\label{ec:ecuacion}
+    x_1= \frac{-b+\sqrt{b^2-4*a*c}}{2*a}
+\end{equation}
+
+
+
+
+Las dimensiones del la zona de texto se definen a través del \emph{geometry}, \lstinline[language=enparrafo]!geometry!, un paquete de latex que en este caso se incluye en el estilo \textbf{UAL}, \lstinline[language=enparrafo]!\usepackage{UAL}!.
+
+\section {Estilo ual de latex}
+
+En el estilo se define la portada y contraportada según las recomendaciones de la escuela superior de ingeniería, véase la figura \ref{fig:facultad}.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width = 0.5\textwidth]{facultad.png}
+	\end{center}
+	\caption{\label{fig:facultad} Logotipo de la Escuela Superior de ingeniería }
+\end{figure}
+
+
+
+El estilo generado permite definir un documento a una cara o doble cara para lo que se tiene que seleccionar la opción "print" al incluir el paquete estilo (\lstinline[language=enparrafo]!\usepackage[print]{UAL}!). De esta forma se podrá personalizar, el pasar al la página impar en cada sección o bien a la páginas siguiente. %Para lo que se ha personalizado el comando $\ $siguiente que se ha de colocar antes del inicio de cada sección.
+Además se fija la marca de agua. Otras cuestiones incorporados en el estilo son los distintos tipos de cabeceras y pies de página necesarios.
+
+Un aspecto importante son los elementos flotantes de latex, en especial tablas y figuras. Estos son los elementos que después pueden incorporarse en los índices de la cabecera del documento. En los casos que se utilicen "códigos" también se puede incluir un índice de listados, \lstinline[language=enparrafo]!\usepackage{listing}!.
+
+Si es necesario se puede trabajar con los paquetes para tablas largas o con aquellos que permiten hacer subfiguras.
+
+ \section{Figuras y tablas}
+
+Las  figuras  (o  gráficos)  y  tablas  (cuadros)  que  se  incorporen  deben  ir  numerados  (números  arábigos)  y  tener  un  título,  y  siempre  tendrán  que  tener  relación  con el contenido expuesto.  Todo elemento flotante debe referenciarse en el texto y debe colocarse  preferiblemente después de la primera vez que se cita en el texto.
+
+Las  gráficas, fotografías,  los  diagramas,  mapas,  dibujos,  etc.serán  considerados como  figuras. Es importante que se incluya el origen de la figura, en la etiqueta, si la ha hecho el autor se coloca el texto "elaboración propia".
+
+No se deben poner gráficos, figuras y fotos sólo para rellenar siempre se nota demasiado. Los gráficos y figuras deben ir referenciados en el texto, sino es mejor no incorporarlas en la memoria.
+
+
+
+ \section{Listados de código}
+
+En el dominio de la informática es habitual que un TFG/TFM deba incluir porciones de código fomateado. Incluso que se definan como un un elemento flotante especial. En \LaTeX{} existen muchas formas de resolver esta cuestión. Se ha definido un estilo llamado \lstinline[language=enparrafo]!codigo.sty! que implementa un ejemplo. Los archivos de código están una carpeta aparte igual que las figuras. \footnote{Se puede sincronizar con repositorios de código tipo \url{www.github.com} se emplea overleaf, pero es necesario mantener dos proyectos}
+
+\subsection{Utilización del entorno verbatim}
+Lo que en latex se coloca dentro de un entorno verbatim deja de ser código latex y se representan tal como aparece. Pero suele tener interacciones con el paquete  gráfico tikz. por lo que no es recomendable, es mejor usar \lstinline[language=enparrafo]!\lstinline!
+
+\begin{verbatim}
+#include <stdio.h>
+
+int main()
+{
+        printf("Hola mundo");
+        return 0;
+}
+\end{verbatim}
+
+\subsection{Utilización de paquete listing}
+
+
+Se puede escribir directamente el código dentro de un entorno y si no se especifica nada se utilizan los parámetros por defecto. Para detalle de como configurar esta utilidad es conveniente revisar la documentación del paquete
+
+\begin{lstlisting}[caption=Ejemplo ]
+#include <stdio.h>
+
+int main()
+{
+        printf("Hola mundo");
+        return 0;
+}
+}
+\end{lstlisting}
+
+
+Ejemplo de inclusión sin utilizar un objeto flotante. No aparecerá en el índice por poner \lstinline[language=enparrafo]!nolol=true!.
+
+\lstinputlisting[firstline=1, firstnumber=1, nolol=true]{holamundo.c}
+
+
+\lstinputlisting[caption=,language=pseudo, caption=Ejemplo en pseudocodigo]{holamundo.psc}
+
+
+Realmente se trata de un paquete muy complejo que se puede complementar con el uso de entornos personalizados, cuya explotación exhaustiva queda fuera de este libro de estilo.
+
+
+\chapter {Buenas prácticas}
+
+
+En esta sección se incluyen una serie de cuestiones o buenas prácticas que se derivan de la experiencia, de normas básicas de elaboración de textos científicos \cite{alba2009}, y de las normas gramaticales básicas.
+
+\begin{enumerate}
+    \item Cuidado con el espacio entre palabras, utilizar \emph{hyphenation} para cortar o no palabras con los guiones. Aunque por defecto el paquete de español de latex lo gestiona aceptablemente bien.
+
+\item Los signos de puntuación (comas, puntos, puntos y comas, dos puntos) así   como   el   cierre  de   comillas, paréntesis e   interrogaciones han   de   ir inmediatamente   a   continuación   (sin   espacios)   de   la   palabra   anterior   y separados  por  un  espacio  de  la  palabra siguiente.  De  modo  contrario,  los signos   de   apertura   de   comillas, paréntesis e   interrogaciones deben   ir separados  por  un  espacio  de  la  palabra  anterior e inmediatamente  antes  (sin espacio) de la palabra posterior.
+
+
+\item En las listas \lstinline[language=enparrafo]!\begin{itemize}! \lstinline[language=enparrafo]!end{itemize}! o enumeraciones \lstinline[language=enparrafo]!\begin{enumerate}! donde no aparezca un verbo, es decir no se a una oración completa no se pone punto al final. Sólo se pone punto en el último item de la lista para finalizar el párrafo.
+
+\item Por la misma razón no se deben acabar los títulos y los subtitulos con un punto. En los pies de figuras y tablas queda a criterio del autor y tutor, pero la recomendación es no ponerlo.
+
+\item Aunque en español las siglas puedan marcarse con puntos entre letra y letra,  se  recomienda  utilizarlas  siempre  en  mayúscula  (siempre  sin  tilde) y  sin los    puntos.  
+
+\item La  primera  vez  se emplea una acrónimo debe  ser  definido, incluyendo   el   texto   de   la   definición   entre   paréntesis   y   marcando   con mayúsculas  las  letras  que  dan  lugar  al  acrónimo.  Ejemplo:  MCU  (Multipoint Control  Unit).  En  subsiguientes  apariciones  del  acrónimo  no  debe  volverse  a incluir  la  definición.  Se  recomienda  adjuntar  al  principio  del  proyecto  una relación    detallada    de    los    acrónimos    y    su    significado,    ordenados alfabéticamente.
+
+
+\item Existen tres tipos de comillas: las españolas o latinas (<<comillas >>), las inglesas ("comillas") y las simples ('comillas' ). Use un único tipo a lo largo del texto. En escritos científicos es más común encontrar las inglesas o las simples. Empléelas siempre que efectúe citas textuales extraídas de algún documento.  También están las comillas abiertas y cerradas ``comillas ''. 
+
+
+\item Evite   emplear   innecesariamente   palabras   o   expresiones   en   inglés cuando  en  español  exista  un  equivalente.  El  uso  de  términos  ingleses  no aceptados debe circunscribirse al campo técnico. Por ejemplo "planning del proyecto" en lugar de "planificación del proyecto". 
+
+\item No se deben traducir sin comprobar la validez términos técnicos muy específicos si dichas traducciones no se encuentran más o menos asumidas por la comunidad científica (es decir, las   ha   leído   o   escuchado   repetidas   veces).   En   el   texto   los   términos   y expresiones inglesas no aceptados deben aparecer en cursiva.
+
+\item Cuando  se  referencien  símbolos  matemáticos  en  el  texto,  estos  han  de aparecer   en   cursiva   y   de   la   misma   manera   a   como   aparecen   en   las ecuaciones.
+
+\item No se deben usar frases con el verbo principal en infinitivo y sin articular. Por ejemplo no se debe escribir  “En  primer  lugar,  destacar  que  los  resultados  se  obtuvieron  por simulación”. En su lugar  “En primer  lugar se ha  de  reseñar que  los resultados...” (o “se debe”, “es preciso”, “hemos de”, “cabe” reseñar).
+
+\item El sujeto (salvo que se intercale una frase subordinada) no se puede separar por comas del predicado. 
+
+\item Se ha de ser   coherente  con  el  uso  de  los  tiempos  verbales.  Si  describe  lo  que  se  ha hecho en pasado, se ha de continuar  con ese tiempo a lo largo de la memoria. 
+
+\item No se debe abusar del  anidamiento  de oraciones  subordinadas.  En  su  lugar  es recomendable  usar  una  secuencia  de  oraciones  cortas,  que  son  de  más  fácil compresión. Asimismo, se deben evitar las negaciones encadenadas 
+“no  aumentar  el  parámetro  beta  implica  que  no  se  aumenta  la  ganancia”, siendo preferible afirmar “reducir el parámetro beta reduce la ganancia”.
+
+\item Se han de reescribir   las  formas pasivas.  Utilice,  en  su  lugar,  la  pasiva  refleja.  Es preferible “se ha desarrollado un sistema” a “un sistema ha sido desarrollado”. La construcción en pasiva es típicamente inglesa y su abuso denota que estás traduciendo algo (lo cual no es pecado si dices de quien lo traduces). Lo mejor es escribir en castellano. Ejemplo: “Puede  que  sean  retrasadas...”    se  debería  escribir  “Pueden  retrasarse”  o  “puede  que  se retrasen”.
+
+\item Todos los párrafos concluyen con un punto final.
+
+\item En  el  texto,  si se utilizan números se han de expresar   con  palabras   si  son  menores  o  iguales  que veinte y con números si son superiores a ese valor o presentan decimales.
+
+\item A  la  hora  de  emplear  la  coma  o  el  punto  para  expresar  los decimales en los números se debe ser congruente, no usarlos indistintamente.
+
+\item  Los términos  (adjetivos  y  adverbios)  valorativos  que  resulten  exagerados  o poco científicos deben evitarse. Por ejemplo,  “notablemente” o “sustancialmente” antes que “espectacularmente”, “enormemente”, “aplastantemente”, “drásticamente”o “fenomenalmente”. Al hablar de un resultado  o  de  un  producto  de  Ingeniería, es preferible “de forma adecuada o muy conveniente” antes que “perfectamente”.
+
+\item En un texto científico es preferible, para concluir una relación que se sabe que es muy larga, emplear “etc.” que los puntos suspensivos (“...”).
+
+\item El  vocabulario debe ser rico y no repetir términos dentro de la misma frase o  párrafo.  Por  ejemplo,  para comentar  lo  que  una  figura  enseña,  puede  decir “en  la  figura  se  muestra,  se  refleja,  se  indica,  se  ilustra,  se  presenta,  se observa, se detecta, se comprueba, se contempla, se evidencia, se confirma,...”
+
+\item Las  frases han de concordar en  sujeto y predicado.
+
+\item  El término “demostrar” es muy riguroso (salvo  que  exista  una  auténtica demostración). Una figura muestra pero no suele demostrar nada. 
+
+\item Salvo en casos muy puntuales (citas textuales, por ejemplo), detrás de los dos puntos (“:”) se sigue en minúsculas.
+
+\item No se debe utilizar la palabra \emph{optimizar} en vano.
+
+\item Escribir  un  trabajo  de  investigación,  no  es  hacer  literatura  barroca.  Cada  frase  y  cada  palabra debe servir para algo. Si no limitamos nuestra verborrea, nos podemos meter en un lío.
+
+\item Si  se  va  a  hacer  una  descripción  de,  por  ejemplo,  siete  etapas  de  algo,  no  está  de  más, primero listarlas y luego iniciar la descripción.
+
+
+
+\end{enumerate}
+
+ Otra lista de errores y/o consideraciones se muestra en la figura \ref{fig:errores}.
+ 
+\begin{figure}[h]
+	\begin{center}
+		\includegraphics[width = 0.95\textwidth]{Figuras/errores}
+	\end{center}
+	\caption{\label{fig:errores} Errores habituales}
+\end{figure}
+
+
+
+ 
+ \chapter{Apartados del trabajo }
+\label{sec:apartados}
+
+Tal como se indicó en la sección \ref{sec:intro}, además de la portada y datos de identificación, los apartados de referencia el trabajo tendrán cuatro partes diferenciadas (introducción, desarrollo, conclusiones y  referencias bibliográficas) y los anexos.
+
+ \section{Bloque inicial de identificación}
+
+ \subsection{Portada y contraportada}  
+La portada es la presentación del trabajo en la que se ha de indicar el título y subtítulo (si  lo  hubiera),  el  autor  o  la  autora  del  mismo,  el  nombre  del  tutor  o  de  la  tutora,  el  Grado  que  cursa, la institución y el año. Su formato está fijado por la ESI.
+
+
+\paragraph{Titulo}
+
+Debe describir el contenido del trabajo, 10 o 15 palabras. Un buen título nos servirá para identificar el objetivo principal del estudio.
+
+\paragraph{Resumen }
+Debe contener:
+\begin{itemize}
+    \item El  propósito  del  trabajo  en  una  o  dos  frases
+    \item El  diseño  y metodología  utilizada
+    \item Los  resultados  más  significativos  del trabajo realizado 
+    \item Un breve resumen de las conclusiones.
+\end{itemize}
+
+
+ \subsection{Portadilla}
+A decisión del autor del trabajo se puede incorporar una dedicatoria, y también una copia del resumen de la contraportada. En el caso de no encuadernarse el trabajo \footnote{se ha seleccionado la opción \emph{print} al incorporar el estilo y \emph{twoside} al seleccionar la clase latex del documento}, es recomendable incorporar el resumen en esta portadilla.
+
+También se puede añadir una  sección  de  agradecimientos  (evidentemente  no  obligatoria)  define  un apartado  donde  el autor  puede  (y  quizás  debe)  referenciar  a  aquellas  personas  y/o  instituciones  que,  de  manera generosa, han colaborado de algún modo en la gestación y desarrollo del TFG/TFM.
+Igualmente el autor también  puede  utilizar  este  apartado libremente  para mencionar  a  aquellos  familiares,  compañeros, amigos, etc., de los que ha recibido apoyo personal, moral o afectivo. 
+
+ \subsection{Índices y listas}
+
+Cada índice puede o no  comenzar en una nueva página (utilizando el comando  \lstinline[language=enparrafo]!\clearpage! , se incluirán los índices que se estimen necesarios, en este orden:
+
+\begin{itemize}
+    \item Índice de contenidos: (obligatorio  siempre)  se  incluirá  un  índice  de  las secciones  de  las  que  se  componga  el  documento,  la  numeración  de las divisiones  y  subdivisiones  utilizarán  cifras  arábigas y harán mención a la página del documento donde se ubiquen.
+    
+\item Índice de figuras: si el documento incluye figuras se podrá incluir también un índice con su relación, indicando la página donde se ubiquen.
+
+\item Índice de tablas: en caso de existir en el texto, ídem que el anterior.
+
+\item Índice de listados: en caso de existir en el texto, ídem que el anterior.
+
+\item Índice de abreviaturas, siglas, símbolos,etc.:en  caso  de  ser  necesarios  se podrá incluir cada uno de ellos.
+
+\end{itemize}
+
+ \section{Introducción}
+Se hará énfasis a la importancia de la temática, su vigencia y  actualidad;  se  planteará  el  problema  a  investigar,  así  como  el  propósito  o finalidad de la investigación. En cuanto a incluir o no un anticipo de las conclusiones habitualmente depende del tipo de trabajo y suele estar a criterio de tutor.
+
+Cabe destacar la necesidad de incorporar los objetivos si no se utiliza un apartado específico para ello.
+
+ \section{Desarrollo o cuerpo del documento}
+Incluye   el  desarrollo  de  los  aspectos  esenciales  del  tema.  Aquí  se  evidenciará la capacidad de organización y estructuración de los argumentos de quien escribe. Se han de evitar las contradicciones y asegurar la coherencia entre las ideas expresadas. El desarrollo se  basa  en  la  exposición,  en  el  análisis  reflexivo  y  en  el  contraste  de  ideas.  En  este  proceso  argumentativo,  las  ideas  principales  y  secundarias  deben  ir  acompañadas  de  \textbf{citas  de  fuentes  bibliográficas} y de ejemplos que lograrán sustentar la tesis principal del trabajo. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Los objetivos del trabajo o bien se han definido en la introducción o se describen como primer apartado del cuerpo del documento.
+
+En informática en la Universidad de Almería (UAL) si bien todos los trabajos son monográficos, también cierto que la mayor parte de ellos tienen una componente puramente técnica de desarrollo de aplicaciones software, donde se aplica alguna metodología de desarrollo de software \cite{SWEBOK2014}. El apartado desarrollo deberá balancear la componente  técnica con la de investigación propia de un trabajo monográfico.
+
+En el aspecto mas investigador,  es  importante  destacar  dos  aspectos \cite{alicante}:  
+\begin{itemize}
+    \item [Primera]  Es  muy  importante  la  relectura  de  las  fuentes. No basta con   resumir   lo  leído  sino  que hay que   analizarlo. % hay  que  procurar  contrastar  la  información  recogida  con  la  perspectiva  personal.  
+    \item [Segunda]   Nunca  se  debe  tomar  como  propias  las  ideas  de  otras  personas;  esto  es  plagio  académico. Toda  información  recabada    debe  ser  especificada  como  tal,  es  decir,  debe  ser  citada la fuente de la que procede.
+    
+\end{itemize}
+
+
+Si el TFG involucra el desarrollo de software de aplicación es en este apartado donde se debe indicar el proceso y / o metodología seguida. Se describirán todas las etapas del desarrollo, así como las herramientas utilizadas. Pero la memoria no se puede convertir en una lista de artefactos del proceso software. Los anexos son una buena oportunidad para mostrar el trabajo realizado sin enmarañar la memoria.
+
+
+
+ \section{Conclusiones}
+Obligatoriamente se incluirá una sección de conclusiones donde se realizará  un  resumen  de los objetivos  conseguidos  así  como de  los resultados obtenidos si proceden.
+\begin{itemize}
+\item Deben ser breves y responder específicamente a los objetivos
+planteadas en su caso en  la Introducción o en el apartado objetivos.
+\item  Las recomendaciones que se formulen han de ser viables y
+deben sugerir, además, en qué línea hay que seguir investigando como trabajo futuro.
+\item Discutir las implicaciones de los resultados para la práctica  del campo de la informática.
+
+\end{itemize}
+
+
+
+ \section{Bibliografía}
+  Se  incluirá    la  relación  de  obras  y  materiales consultados  y  empleados  en  la  elaboración  de  la  memoria  del  TFG.
+   Podrá  utilizarse  cualquier  sistema bibliográfico normalizado    predominante    en    la    rama    de conocimiento, se debe acordar con el tutor.
+
+ \section{Anexos}
+Se incluirán tantos como sea necesario. Se recomienda incorporar los artefactos generados en el desarrollo del proyecto software como anexos para agilizar la lectura de la memoria. Se debe recordar que la memoria del TFG no es un documento técnico sino académico.
+
+
+
+ 
+ \chapter {Apartado de INTRODUCCIÓN}
+
+
+En lo que atañe al contenido de esta sección \ref{sec:intro}, como cualquier introducción es importante que se cumpla con la norma de ser breve y recoger tanto el problema como el enfoque de la solución planteada en el trabajo fin de grado.
+
+Se hará una introducción al ámbito del trabajo, comenzando por el contexto general y aproximándose progresivamente a los aspectos más concretos que se traten. Es conveniente  terminar  con  una  exposición  clara  de  los  objetivos.
+
+Los objetivos si bien se incluirán en la introducción pueden aparecer al inicio del cuerpo del trabajo con su propio subapartado.
+
+Debe responder a las siguientes preguntas:
+\begin{itemize}
+    \item ¿Qué se sabe del tema que se quiere investigar?
+    \item ¿Para qué se quiere estudiar ese tema concreto?
+    \item ¿Qué  se  quiere  saber  sobre  ese  tema  concreto?  (hipótesis, preguntas, objetivos de investigación) En  este  apartado  se  deben  ir  insertando  referencias  bibliográficas pertinentes.
+\end{itemize}
+
+Otras pequeñas consideraciones sobre este apartado son:
+\begin{enumerate}
+    \item  \textbf{Contextualiza al lector}. La introducción cumple el rol de sumergir al lector en el contexto en el que se  centra el resto de la memoria.
+    \item  \textit{Constituye la primera impresión}. Es importante que dedicar un tiempo considerable a escribirla porque será la primera impresión que los lectores tendrán sobre el trabajo realizado. La introducción a un trabajo debe incorporar la hipótesis y los principales argumentos, aunque intentando que sea, a la vez, concisa, breve, creativa y analítica.
+
+\item \underline{ Sirve para centrarse}. La introducción de un trabajo lleva al lector de lo general a lo particular. Lo importante es que, si bien se puede optar por una primera frase general, esta debe contextualizar, pero no tiene que estar demasiado alejada del tema principal. Se ha de pisar el suelo.
+
+\item \textsc{Actúa como “gancho”}.  Se puede comenzar con un ejemplo, con una cita de texto interesante, una anécdota inesperada o una pregunta disparadora, pero sin pasarse.
+    
+\end{enumerate}
+
+
+Pero  tal como se dice en la figura \ref{fig:recintro}, es lo último a escribir en la redacción del  trabajo fin de grado.
+
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale = 0.95]{Figuras/intro.png}
+	\end{center}
+	\caption{\label{fig:recintro} Recomendaciones sobre la introducción}
+\end{figure}
+
+
+
